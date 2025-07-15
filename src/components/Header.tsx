@@ -24,7 +24,13 @@ export const Header = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-3">
             <div className="bg-gradient-to-r from-blue-600 to-indigo-600 p-2 rounded-lg">
-              <Calculator className="w-6 h-6 text-white" />
+
+              <img 
+                src="documentall-logo.png" 
+                alt="Logo Documentall"
+                className="w-32 h-32 object-cover rounded" 
+              />
+
             </div>
             <div>
               <h1 className="text-xl font-bold text-gray-900">Documentall</h1>
