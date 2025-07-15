@@ -6,6 +6,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { FormData } from '@/types/database';
 import { useEstados } from '@/hooks/useEstados';
 import { useProcuracoes } from '@/hooks/useProcuracoes';
+import { useMunicipios } from '@/hooks/useMunicipios';
+import { Info } from 'lucide-react';
 
 interface FormSectionProps {
   formData: FormData;
@@ -16,6 +18,7 @@ export const FormSection: React.FC<FormSectionProps> = ({ formData, setFormData 
   const { data: estados, isLoading: isLoadingEstados } = useEstados();
   const estadoSelecionado = estados?.find(e => e.uf === formData.estado);
   const { data: procuracoes, isLoading: isLoadingProcuracoes } = useProcuracoes(estadoSelecionado?.id || null);
+  const { data: municipios, isLoading: isLoadingMunicipios } = useMunicipios(estadoSelecionado?.id || null);
 
   const formatCurrency = (value: string) => {
     const numericValue = value.replace(/\D/g, '');
@@ -32,93 +35,134 @@ export const FormSection: React.FC<FormSectionProps> = ({ formData, setFormData 
   };
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-      {/* Estado */}
-      <div className="space-y-2">
-        <Label htmlFor="estado" className="text-sm font-medium text-gray-700">
-          Estado (UF) *
-        </Label>
-        <Select 
-          value={formData.estado} 
-          onValueChange={(value) => setFormData(prev => ({ 
-            ...prev, 
-            estado: value, 
-            tipoProcuracao: '' // Reset procuração quando muda estado
-          }))}
-        >
-          <SelectTrigger className="h-11">
-            <SelectValue placeholder="Selecione o estado" />
-          </SelectTrigger>
-          <SelectContent className="max-h-60">
-            {isLoadingEstados ? (
-              <SelectItem value="loading" disabled>Carregando...</SelectItem>
-            ) : (
-              estados?.map((estado) => (
-                <SelectItem key={estado.id} value={estado.uf}>
-                  {estado.nome} ({estado.uf})
+    <div className="space-y-6">
+      {/* Dicas de Uso */}
+      <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+        <div className="flex items-start gap-3">
+          <Info className="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" />
+          <div className="text-sm text-blue-800">
+            <p className="font-semibold mb-2">Como usar a plataforma:</p>
+            <ul className="space-y-1 text-xs">
+              <li>• Selecione o estado desejado para consulta</li>
+              <li>• Escolha o município (apenas municípios cadastrados aparecem)</li>
+              <li>• Digite o valor do imóvel com formatação automática</li>
+              <li>• Selecione o tipo de procuração específico do estado</li>
+              <li>• Clique em "Calcular" para ver os resultados e comparação com o DF</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* Estado */}
+        <div className="space-y-2">
+          <Label htmlFor="estado" className="text-sm font-medium text-gray-700 flex items-center gap-2">
+            Estado (UF) *
+            <span className="text-xs text-gray-500">(Selecione primeiro)</span>
+          </Label>
+          <Select 
+            value={formData.estado} 
+            onValueChange={(value) => setFormData(prev => ({ 
+              ...prev, 
+              estado: value, 
+              municipio: '', // Reset município quando muda estado
+              tipoProcuracao: '' // Reset procuração quando muda estado
+            }))}
+          >
+            <SelectTrigger className="h-12 border-2 border-gray-200 hover:border-blue-300 transition-colors">
+              <SelectValue placeholder="Selecione o estado" />
+            </SelectTrigger>
+            <SelectContent className="max-h-60">
+              {isLoadingEstados ? (
+                <SelectItem value="loading" disabled>Carregando...</SelectItem>
+              ) : (
+                estados?.map((estado) => (
+                  <SelectItem key={estado.id} value={estado.uf}>
+                    {estado.nome} ({estado.uf})
+                  </SelectItem>
+                ))
+              )}
+            </SelectContent>
+          </Select>
+        </div>
+
+        {/* Município */}
+        <div className="space-y-2">
+          <Label htmlFor="municipio" className="text-sm font-medium text-gray-700 flex items-center gap-2">
+            Município *
+            <span className="text-xs text-gray-500">(Apenas cadastrados)</span>
+          </Label>
+          <Select
+            value={formData.municipio}
+            onValueChange={(value) => setFormData(prev => ({ ...prev, municipio: value }))}
+            disabled={!formData.estado}
+          >
+            <SelectTrigger className="h-12 border-2 border-gray-200 hover:border-blue-300 transition-colors">
+              <SelectValue placeholder={formData.estado ? "Selecione o município" : "Primeiro selecione um estado"} />
+            </SelectTrigger>
+            <SelectContent className="max-h-60">
+              {isLoadingMunicipios ? (
+                <SelectItem value="loading" disabled>Carregando...</SelectItem>
+              ) : municipios && municipios.length > 0 ? (
+                municipios.map((municipio) => (
+                  <SelectItem key={municipio.nome} value={municipio.nome}>
+                    {municipio.nome}
+                  </SelectItem>
+                ))
+              ) : (
+                <SelectItem value="no-data" disabled>
+                  Nenhum município cadastrado
                 </SelectItem>
-              ))
-            )}
-          </SelectContent>
-        </Select>
-      </div>
+              )}
+            </SelectContent>
+          </Select>
+        </div>
 
-      {/* Município */}
-      <div className="space-y-2">
-        <Label htmlFor="municipio" className="text-sm font-medium text-gray-700">
-          Município *
-        </Label>
-        <Input
-          id="municipio"
-          placeholder="Digite o município"
-          value={formData.municipio}
-          onChange={(e) => setFormData(prev => ({ ...prev, municipio: e.target.value }))}
-          className="h-11"
-        />
-      </div>
+        {/* Valor do Imóvel */}
+        <div className="space-y-2">
+          <Label htmlFor="valorImovel" className="text-sm font-medium text-gray-700 flex items-center gap-2">
+            Valor do Imóvel *
+            <span className="text-xs text-gray-500">(Formato automático)</span>
+          </Label>
+          <Input
+            id="valorImovel"
+            placeholder="R$ 0,00"
+            value={formData.valorImovel > 0 ? formatCurrency((formData.valorImovel * 100).toString()) : ''}
+            onChange={(e) => handleValueChange(e.target.value)}
+            className="h-12 border-2 border-gray-200 hover:border-blue-300 focus:border-blue-500 transition-colors text-lg font-semibold"
+          />
+        </div>
 
-      {/* Valor do Imóvel */}
-      <div className="space-y-2">
-        <Label htmlFor="valorImovel" className="text-sm font-medium text-gray-700">
-          Valor do Imóvel *
-        </Label>
-        <Input
-          id="valorImovel"
-          placeholder="R$ 0,00"
-          value={formData.valorImovel > 0 ? formatCurrency((formData.valorImovel * 100).toString()) : ''}
-          onChange={(e) => handleValueChange(e.target.value)}
-          className="h-11"
-        />
-      </div>
-
-      {/* Tipo de Procuração */}
-      <div className="space-y-2">
-        <Label htmlFor="tipoProcuracao" className="text-sm font-medium text-gray-700">
-          Tipo de Procuração *
-        </Label>
-        <Select 
-          value={formData.tipoProcuracao} 
-          onValueChange={(value) => setFormData(prev => ({ ...prev, tipoProcuracao: value }))}
-          disabled={!formData.estado}
-        >
-          <SelectTrigger className="h-11">
-            <SelectValue placeholder={formData.estado ? "Selecione o tipo" : "Primeiro selecione um estado"} />
-          </SelectTrigger>
-          <SelectContent>
-            {isLoadingProcuracoes ? (
-              <SelectItem value="loading" disabled>Carregando...</SelectItem>
-            ) : (
-              procuracoes?.map((procuracao) => (
-                <SelectItem key={procuracao.id} value={procuracao.descricao}>
-                  {procuracao.descricao} - {new Intl.NumberFormat('pt-BR', {
-                    style: 'currency',
-                    currency: 'BRL',
-                  }).format(procuracao.valor)}
-                </SelectItem>
-              ))
-            )}
-          </SelectContent>
-        </Select>
+        {/* Tipo de Procuração */}
+        <div className="space-y-2">
+          <Label htmlFor="tipoProcuracao" className="text-sm font-medium text-gray-700 flex items-center gap-2">
+            Tipo de Procuração *
+            <span className="text-xs text-gray-500">(Por estado)</span>
+          </Label>
+          <Select 
+            value={formData.tipoProcuracao} 
+            onValueChange={(value) => setFormData(prev => ({ ...prev, tipoProcuracao: value }))}
+            disabled={!formData.estado}
+          >
+            <SelectTrigger className="h-12 border-2 border-gray-200 hover:border-blue-300 transition-colors">
+              <SelectValue placeholder={formData.estado ? "Selecione o tipo" : "Primeiro selecione um estado"} />
+            </SelectTrigger>
+            <SelectContent>
+              {isLoadingProcuracoes ? (
+                <SelectItem value="loading" disabled>Carregando...</SelectItem>
+              ) : (
+                procuracoes?.map((procuracao) => (
+                  <SelectItem key={procuracao.id} value={procuracao.descricao}>
+                    {procuracao.descricao} - {new Intl.NumberFormat('pt-BR', {
+                      style: 'currency',
+                      currency: 'BRL',
+                    }).format(procuracao.valor)}
+                  </SelectItem>
+                ))
+              )}
+            </SelectContent>
+          </Select>
+        </div>
       </div>
     </div>
   );
