@@ -14,7 +14,179 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      aliquotas_itbi: {
+        Row: {
+          aliquota: number
+          created_at: string
+          estado_id: string
+          id: string
+          municipio: string | null
+        }
+        Insert: {
+          aliquota: number
+          created_at?: string
+          estado_id: string
+          id?: string
+          municipio?: string | null
+        }
+        Update: {
+          aliquota?: number
+          created_at?: string
+          estado_id?: string
+          id?: string
+          municipio?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "aliquotas_itbi_estado_id_fkey"
+            columns: ["estado_id"]
+            isOneToOne: false
+            referencedRelation: "estados"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      estados: {
+        Row: {
+          created_at: string
+          id: string
+          nome: string
+          uf: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          nome: string
+          uf: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          nome?: string
+          uf?: string
+        }
+        Relationships: []
+      }
+      procuracoes: {
+        Row: {
+          created_at: string
+          descricao: string
+          estado_id: string
+          id: string
+          valor: number
+        }
+        Insert: {
+          created_at?: string
+          descricao: string
+          estado_id: string
+          id?: string
+          valor: number
+        }
+        Update: {
+          created_at?: string
+          descricao?: string
+          estado_id?: string
+          id?: string
+          valor?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "procuracoes_estado_id_fkey"
+            columns: ["estado_id"]
+            isOneToOne: false
+            referencedRelation: "estados"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      valores_escritura: {
+        Row: {
+          created_at: string
+          estado_id: string
+          faixa_max: number | null
+          faixa_min: number
+          id: string
+          percentual: number | null
+          teto: number | null
+          tipo_imovel: string | null
+          valor_fixo: number | null
+        }
+        Insert: {
+          created_at?: string
+          estado_id: string
+          faixa_max?: number | null
+          faixa_min: number
+          id?: string
+          percentual?: number | null
+          teto?: number | null
+          tipo_imovel?: string | null
+          valor_fixo?: number | null
+        }
+        Update: {
+          created_at?: string
+          estado_id?: string
+          faixa_max?: number | null
+          faixa_min?: number
+          id?: string
+          percentual?: number | null
+          teto?: number | null
+          tipo_imovel?: string | null
+          valor_fixo?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "valores_escritura_estado_id_fkey"
+            columns: ["estado_id"]
+            isOneToOne: false
+            referencedRelation: "estados"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      valores_registro: {
+        Row: {
+          created_at: string
+          estado_id: string
+          faixa_max: number | null
+          faixa_min: number
+          id: string
+          percentual: number | null
+          teto: number | null
+          tipo_imovel: string | null
+          valor_fixo: number | null
+        }
+        Insert: {
+          created_at?: string
+          estado_id: string
+          faixa_max?: number | null
+          faixa_min: number
+          id?: string
+          percentual?: number | null
+          teto?: number | null
+          tipo_imovel?: string | null
+          valor_fixo?: number | null
+        }
+        Update: {
+          created_at?: string
+          estado_id?: string
+          faixa_max?: number | null
+          faixa_min?: number
+          id?: string
+          percentual?: number | null
+          teto?: number | null
+          tipo_imovel?: string | null
+          valor_fixo?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "valores_registro_estado_id_fkey"
+            columns: ["estado_id"]
+            isOneToOne: false
+            referencedRelation: "estados"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
