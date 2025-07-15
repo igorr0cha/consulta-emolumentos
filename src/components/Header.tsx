@@ -23,15 +23,13 @@ export const Header = () => {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-3">
-            <div className="bg-gradient-to-r from-blue-600 to-indigo-600 p-2 rounded-lg">
 
-              <img 
-                src="documentall-logo.png" 
-                alt="Logo Documentall"
-                className="w-32 h-32 object-cover rounded" 
-              />
+            <img 
+              src="documentall-logo.png" 
+              alt="Logo Documentall"
+              className="w-32 h-32 object-cover rounded" 
+            />
 
-            </div>
             <div>
               <h1 className="text-xl font-bold text-gray-900">Documentall</h1>
               <p className="text-xs text-gray-500">Consulta de Emolumentos</p>
