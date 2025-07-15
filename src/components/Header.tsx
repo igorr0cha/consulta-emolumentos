@@ -18,21 +18,19 @@ export const Header = () => {
   const isActive = (path: string) => location.pathname === path;
 
   return (
-    <header className="bg-white shadow-lg border-b sticky top-0 z-50">
+    <header className="shadow-lg border-b sticky top-0 z-50" style={{ backgroundColor: '#00489a' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-3">
-
             <img 
               src="documentall-logo.png" 
               alt="Logo Documentall"
-              className="w-32 h-32 object-cover rounded" 
+              className="w-10 h-10 object-contain rounded" 
             />
-
             <div>
-              <h1 className="text-xl font-bold text-gray-900">Documentall</h1>
-              <p className="text-xs text-gray-500">Consulta de Emolumentos</p>
+              <h1 className="text-xl font-bold text-white">Documentall</h1>
+              <p className="text-xs text-white/80">Consulta de Emolumentos</p>
             </div>
           </Link>
 
@@ -44,8 +42,8 @@ export const Header = () => {
                   <NavigationMenuLink 
                     className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
                       isActive('/') 
-                        ? 'bg-blue-100 text-blue-700' 
-                        : 'text-gray-700 hover:text-blue-600 hover:bg-gray-100'
+                        ? 'bg-white/20 text-white' 
+                        : 'text-white/90 hover:text-white hover:bg-white/10'
                     }`}
                   >
                     Consulta
@@ -54,7 +52,7 @@ export const Header = () => {
               </NavigationMenuItem>
 
               <NavigationMenuItem>
-                <NavigationMenuTrigger className="text-sm font-medium">
+                <NavigationMenuTrigger className="text-sm font-medium text-white/90 hover:text-white hover:bg-white/10 data-[state=open]:bg-white/20 data-[state=open]:text-white">
                   Links Úteis
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
@@ -70,7 +68,7 @@ export const Header = () => {
                             Links dos Estados
                           </div>
                           <p className="text-sm leading-tight text-muted-foreground">
-                            Acesse os portais oficiais de cada estado brasileiro
+                            Acesse os portais oficiais de escritura e registro de cada estado brasileiro
                           </p>
                         </Link>
                       </NavigationMenuLink>
@@ -84,8 +82,8 @@ export const Header = () => {
                   <NavigationMenuLink 
                     className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
                       isActive('/sobre') 
-                        ? 'bg-blue-100 text-blue-700' 
-                        : 'text-gray-700 hover:text-blue-600 hover:bg-gray-100'
+                        ? 'bg-white/20 text-white' 
+                        : 'text-white/90 hover:text-white hover:bg-white/10'
                     }`}
                   >
                     Sobre
