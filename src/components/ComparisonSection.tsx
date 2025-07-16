@@ -2,7 +2,7 @@
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { TrendingDown, TrendingUp, AlertTriangle } from 'lucide-react';
+import { TrendingDown, TrendingUp, AlertTriangle, MapPin } from 'lucide-react';
 import { FormData, CalculationResult } from '@/types/database';
 import { useCalculation } from '@/hooks/useCalculation';
 import { useEstados } from '@/hooks/useEstados';
@@ -23,7 +23,7 @@ export const ComparisonSection: React.FC<ComparisonSectionProps> = ({
     dfEstado ? {
       estadoId: dfEstado.id,
       valorImovel: formData.valorImovel,
-      tipoProcuracao: 'Procuração Básica', // Usar procuração padrão do DF
+      tipoProcuracao: 'Procuração Básica',
     } : null
   );
 
@@ -43,110 +43,177 @@ export const ComparisonSection: React.FC<ComparisonSectionProps> = ({
   const hasEconomia = economia > 0;
 
   return (
-    <Card className="border-2 border-dashed border-gray-300">
-      <CardHeader className="bg-gradient-to-r from-yellow-50 to-orange-50">
-        <CardTitle className="flex items-center gap-2 text-xl">
-          <AlertTriangle className="w-5 h-5 text-orange-600" />
-          Comparação com Distrito Federal
+    <Card className="border-2 border-dashed border-amber-300 bg-gradient-to-r from-amber-50 to-orange-50">
+      <CardHeader className="p-4 sm:p-6">
+        <CardTitle className="flex items-center gap-2 text-lg sm:text-xl text-amber-800">
+          <MapPin className="w-5 h-5 text-amber-600 flex-shrink-0" />
+          <span className="break-words">Economia em Relação ao DF</span>
         </CardTitle>
+        <p className="text-xs sm:text-sm text-amber-700">
+          Compare os custos entre {formData.estado} e o Distrito Federal para o mesmo imóvel
+        </p>
       </CardHeader>
-      <CardContent className="p-6">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <CardContent className="p-4 sm:p-6">
+        <div className="grid grid-cols-1 xl:grid-cols-3 gap-4 sm:gap-6">
           {/* Estado Selecionado */}
-          <div className="bg-blue-50 rounded-lg p-4">
-            <h3 className="font-semibold text-blue-800 mb-3">
-              {formData.estado} (Selecionado)
-            </h3>
-            <div className="space-y-2 text-sm">
-              <div className="flex justify-between">
-                <span>Escritura:</span>
-                <span className="font-medium">{formatCurrency(originalCalculation.valorEscritura)}</span>
+          <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg p-4 sm:p-6 border border-blue-200">
+            <div className="flex items-center gap-2 mb-4">
+              <div className="w-3 h-3 rounded-full bg-blue-500"></div>
+              <h3 className="font-bold text-blue-800 text-sm sm:text-base">
+                {formData.estado} (Consultado)
+              </h3>
+            </div>
+            <div className="space-y-3 text-xs sm:text-sm">
+              <div className="flex justify-between items-center py-1">
+                <span className="text-blue-700">Escritura:</span>
+                <span className="font-semibold text-blue-900 break-all">
+                  {formatCurrency(originalCalculation.valorEscritura)}
+                </span>
               </div>
-              <div className="flex justify-between">
-                <span>Registro:</span>
-                <span className="font-medium">{formatCurrency(originalCalculation.valorRegistro)}</span>
+              <div className="flex justify-between items-center py-1">
+                <span className="text-blue-700">Registro:</span>
+                <span className="font-semibold text-blue-900 break-all">
+                  {formatCurrency(originalCalculation.valorRegistro)}
+                </span>
               </div>
-              <div className="flex justify-between">
-                <span>ITBI:</span>
-                <span className="font-medium">{formatCurrency(originalCalculation.valorITBI)}</span>
+              <div className="flex justify-between items-center py-1">
+                <span className="text-blue-700">ITBI:</span>
+                <span className="font-semibold text-blue-900 break-all">
+                  {formatCurrency(originalCalculation.valorITBI)}
+                </span>
               </div>
-              <div className="flex justify-between">
-                <span>Procuração:</span>
-                <span className="font-medium">{formatCurrency(originalCalculation.valorProcuracao)}</span>
+              <div className="flex justify-between items-center py-1">
+                <span className="text-blue-700">Procuração:</span>
+                <span className="font-semibold text-blue-900 break-all">
+                  {formatCurrency(originalCalculation.valorProcuracao)}
+                </span>
               </div>
-              <hr className="my-2" />
-              <div className="flex justify-between font-bold text-blue-900">
-                <span>Total:</span>
-                <span>{formatCurrency(originalCalculation.valorTotal)}</span>
+              <hr className="border-blue-300 my-2" />
+              <div className="flex justify-between items-center py-2 bg-blue-100 rounded px-2">
+                <span className="font-bold text-blue-800">Total:</span>
+                <span className="font-bold text-blue-900 text-sm sm:text-base break-all">
+                  {formatCurrency(originalCalculation.valorTotal)}
+                </span>
               </div>
             </div>
           </div>
 
           {/* Distrito Federal */}
-          <div className="bg-gray-50 rounded-lg p-4">
-            <h3 className="font-semibold text-gray-800 mb-3">
-              Distrito Federal (Referência)
-            </h3>
-            <div className="space-y-2 text-sm">
-              <div className="flex justify-between">
-                <span>Escritura:</span>
-                <span className="font-medium">{formatCurrency(dfCalculation.valorEscritura)}</span>
+          <div className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg p-4 sm:p-6 border border-gray-200">
+            <div className="flex items-center gap-2 mb-4">
+              <div className="w-3 h-3 rounded-full bg-gray-500"></div>
+              <h3 className="font-bold text-gray-800 text-sm sm:text-base">
+                Distrito Federal (Referência)
+              </h3>
+            </div>
+            <div className="space-y-3 text-xs sm:text-sm">
+              <div className="flex justify-between items-center py-1">
+                <span className="text-gray-700">Escritura:</span>
+                <span className="font-semibold text-gray-900 break-all">
+                  {formatCurrency(dfCalculation.valorEscritura)}
+                </span>
               </div>
-              <div className="flex justify-between">
-                <span>Registro:</span>
-                <span className="font-medium">{formatCurrency(dfCalculation.valorRegistro)}</span>
+              <div className="flex justify-between items-center py-1">
+                <span className="text-gray-700">Registro:</span>
+                <span className="font-semibold text-gray-900 break-all">
+                  {formatCurrency(dfCalculation.valorRegistro)}
+                </span>
               </div>
-              <div className="flex justify-between">
-                <span>ITBI:</span>
-                <span className="font-medium">{formatCurrency(dfCalculation.valorITBI)}</span>
+              <div className="flex justify-between items-center py-1">
+                <span className="text-gray-700">ITBI:</span>
+                <span className="font-semibold text-gray-900 break-all">
+                  {formatCurrency(dfCalculation.valorITBI)}
+                </span>
               </div>
-              <div className="flex justify-between">
-                <span>Procuração:</span>
-                <span className="font-medium">{formatCurrency(dfCalculation.valorProcuracao)}</span>
+              <div className="flex justify-between items-center py-1">
+                <span className="text-gray-700">Procuração:</span>
+                <span className="font-semibold text-gray-900 break-all">
+                  {formatCurrency(dfCalculation.valorProcuracao)}
+                </span>
               </div>
-              <hr className="my-2" />
-              <div className="flex justify-between font-bold text-gray-900">
-                <span>Total:</span>
-                <span>{formatCurrency(dfCalculation.valorTotal)}</span>
+              <hr className="border-gray-300 my-2" />
+              <div className="flex justify-between items-center py-2 bg-gray-100 rounded px-2">
+                <span className="font-bold text-gray-800">Total:</span>
+                <span className="font-bold text-gray-900 text-sm sm:text-base break-all">
+                  {formatCurrency(dfCalculation.valorTotal)}
+                </span>
               </div>
             </div>
           </div>
 
           {/* Resultado da Comparação */}
-          <div className={`rounded-lg p-4 ${hasEconomia ? 'bg-green-50' : 'bg-red-50'}`}>
-            <div className="text-center">
+          <div className={`rounded-lg p-4 sm:p-6 border-2 ${
+            hasEconomia 
+              ? 'bg-gradient-to-br from-green-50 to-emerald-100 border-green-300' 
+              : 'bg-gradient-to-br from-red-50 to-red-100 border-red-300'
+          }`}>
+            <div className="text-center space-y-3">
               <div className="flex items-center justify-center gap-2 mb-2">
                 {hasEconomia ? (
-                  <TrendingDown className="w-6 h-6 text-green-600" />
+                  <TrendingDown className="w-6 h-6 sm:w-8 sm:h-8 text-green-600" />
                 ) : (
-                  <TrendingUp className="w-6 h-6 text-red-600" />
+                  <TrendingUp className="w-6 h-6 sm:w-8 sm:h-8 text-red-600" />
                 )}
-                <span className={`font-semibold ${hasEconomia ? 'text-green-800' : 'text-red-800'}`}>
-                  {hasEconomia ? 'Economia' : 'Custo Adicional'}
+                <span className={`font-bold text-sm sm:text-base ${
+                  hasEconomia ? 'text-green-800' : 'text-red-800'
+                }`}>
+                  {hasEconomia ? '💰 Economia!' : '💸 Custo Adicional'}
                 </span>
               </div>
               
-              <p className={`text-2xl font-bold ${hasEconomia ? 'text-green-900' : 'text-red-900'}`}>
-                {formatCurrency(Math.abs(economia))}
-              </p>
+              <div className="space-y-2">
+                <p className={`text-2xl sm:text-3xl font-bold break-all ${
+                  hasEconomia ? 'text-green-900' : 'text-red-900'
+                }`}>
+                  {formatCurrency(Math.abs(economia))}
+                </p>
+                
+                <Badge 
+                  className={`text-xs sm:text-sm px-3 py-1 ${
+                    hasEconomia 
+                      ? 'bg-green-100 text-green-800 border-green-200' 
+                      : 'bg-red-100 text-red-800 border-red-200'
+                  }`}
+                >
+                  {Math.abs(percentualEconomia).toFixed(1)}%
+                </Badge>
+              </div>
               
-              <Badge 
-                className={`mt-2 ${
-                  hasEconomia 
-                    ? 'bg-green-100 text-green-800 border-green-200' 
-                    : 'bg-red-100 text-red-800 border-red-200'
-                }`}
-              >
-                {Math.abs(percentualEconomia).toFixed(1)}%
-              </Badge>
-              
-              <p className={`text-xs mt-2 ${hasEconomia ? 'text-green-600' : 'text-red-600'}`}>
-                {hasEconomia 
-                  ? `Você economiza ${Math.abs(percentualEconomia).toFixed(1)}% ao formalizar em ${formData.estado}`
-                  : `Custa ${Math.abs(percentualEconomia).toFixed(1)}% a mais que no DF`
-                }
-              </p>
+              <div className="space-y-2">
+                <p className={`text-xs sm:text-sm font-medium ${
+                  hasEconomia ? 'text-green-700' : 'text-red-700'
+                }`}>
+                  {hasEconomia 
+                    ? `✅ Você economiza fazendo em ${formData.estado}!`
+                    : `⚠️ Custa mais que no DF`
+                  }
+                </p>
+                
+                <p className={`text-xs text-center leading-relaxed ${
+                  hasEconomia ? 'text-green-600' : 'text-red-600'
+                }`}>
+                  {hasEconomia 
+                    ? `Diferença de ${Math.abs(percentualEconomia).toFixed(1)}% a menos ao formalizar em ${formData.estado} em comparação com o Distrito Federal.`
+                    : `Diferença de ${Math.abs(percentualEconomia).toFixed(1)}% a mais ao formalizar em ${formData.estado} em comparação com o Distrito Federal.`
+                  }
+                </p>
+              </div>
             </div>
+          </div>
+        </div>
+
+        {/* Resumo Visual */}
+        <div className="mt-6 p-4 bg-white/70 rounded-lg border border-amber-200">
+          <div className="text-center">
+            <h4 className="font-semibold text-amber-800 mb-2 text-sm sm:text-base">
+              💡 Resumo da Comparação
+            </h4>
+            <p className="text-xs sm:text-sm text-amber-700 leading-relaxed">
+              {hasEconomia 
+                ? `Ao escolher formalizar seu imóvel de ${formatCurrency(formData.valorImovel)} em ${formData.estado}, você economizará ${formatCurrency(Math.abs(economia))} em relação aos custos do Distrito Federal. Esta economia representa ${Math.abs(percentualEconomia).toFixed(1)}% do valor total que seria pago no DF.`
+                : `Formalizar seu imóvel de ${formatCurrency(formData.valorImovel)} em ${formData.estado} custará ${formatCurrency(Math.abs(economia))} a mais em relação aos custos do Distrito Federal. Este valor adicional representa ${Math.abs(percentualEconomia).toFixed(1)}% a mais do que seria pago no DF.`
+              }
+            </p>
           </div>
         </div>
       </CardContent>

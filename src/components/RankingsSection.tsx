@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -133,11 +132,11 @@ export const RankingsSection = ({ valorImovel }: RankingsSectionProps) => {
 
   const RankingList = ({ data, title }: { data: any[], title: string }) => (
     <div className="space-y-4">
-      <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-xl border border-blue-200">
-        <p className="text-sm text-gray-600 mb-1">
+      <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-3 sm:p-4 rounded-xl border border-blue-200">
+        <p className="text-xs sm:text-sm text-gray-600 mb-1">
           Ranking baseado em imóvel de {formatCurrency(valorImovel)}
         </p>
-        <h3 className="font-bold text-gray-800">{title}</h3>
+        <h3 className="font-bold text-gray-800 text-sm sm:text-base">{title}</h3>
       </div>
 
       <div className="space-y-2">
@@ -147,14 +146,14 @@ export const RankingsSection = ({ valorImovel }: RankingsSectionProps) => {
             className={`bg-gradient-to-r ${getGradientColor(index, data.length)} rounded-lg p-3 shadow-sm transition-all duration-300 hover:shadow-md`}
           >
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <div className="text-lg font-bold opacity-90 min-w-[30px]">
+              <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
+                <div className="text-sm sm:text-lg font-bold opacity-90 min-w-[25px] sm:min-w-[30px]">
                   #{index + 1}
                 </div>
-                <div>
-                  <div className="flex items-center gap-2">
-                    <span className="font-semibold text-sm">{item.estado}</span>
-                    <Badge variant="outline" className="bg-white/20 border-white/30 text-white text-xs px-2 py-0">
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-center gap-1 sm:gap-2 mb-1">
+                    <span className="font-semibold text-xs sm:text-sm truncate">{item.estado}</span>
+                    <Badge variant="outline" className="bg-white/20 border-white/30 text-white text-xs px-1 sm:px-2 py-0 flex-shrink-0">
                       {item.uf}
                     </Badge>
                   </div>
@@ -163,8 +162,8 @@ export const RankingsSection = ({ valorImovel }: RankingsSectionProps) => {
                   </span>
                 </div>
               </div>
-              <div className="text-right">
-                <span className="font-bold text-sm">
+              <div className="text-right flex-shrink-0">
+                <span className="font-bold text-xs sm:text-sm break-all">
                   {formatCurrency(item.valor)}
                 </span>
               </div>
@@ -174,9 +173,9 @@ export const RankingsSection = ({ valorImovel }: RankingsSectionProps) => {
       </div>
 
       {/* Gráfico Interativo */}
-      <div className="mt-8">
-        <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-lg">
-          <h4 className="text-lg font-bold text-gray-800 mb-4 text-center">
+      <div className="mt-6 sm:mt-8">
+        <div className="bg-white p-4 sm:p-6 rounded-xl border border-gray-200 shadow-lg">
+          <h4 className="text-base sm:text-lg font-bold text-gray-800 mb-4 text-center">
             Visualização Gráfica - {title}
           </h4>
           <ChartContainer
@@ -186,23 +185,25 @@ export const RankingsSection = ({ valorImovel }: RankingsSectionProps) => {
                 color: "hsl(var(--chart-1))",
               },
             }}
-            className="h-[400px] w-full"
+            className="h-[300px] sm:h-[400px] w-full"
           >
             <ResponsiveContainer width="100%" height="100%">
               <BarChart
                 data={prepareChartData(data)}
-                margin={{ top: 20, right: 30, left: 20, bottom: 60 }}
+                margin={{ top: 20, right: 10, left: 10, bottom: 60 }}
               >
                 <XAxis 
                   dataKey="shortName" 
                   angle={-45}
                   textAnchor="end"
                   height={60}
-                  fontSize={12}
+                  fontSize={10}
+                  interval={0}
                 />
                 <YAxis 
                   tickFormatter={(value) => formatCurrency(value)}
-                  fontSize={12}
+                  fontSize={10}
+                  width={80}
                 />
                 <ChartTooltip
                   content={
@@ -234,30 +235,34 @@ export const RankingsSection = ({ valorImovel }: RankingsSectionProps) => {
 
   return (
     <Card className="shadow-2xl border-0 overflow-hidden">
-      <CardHeader className="bg-gradient-to-r from-purple-600 via-pink-600 to-red-600 text-white">
-        <CardTitle className="flex items-center gap-3 text-2xl">
-          <TrendingUp className="w-7 h-7" />
-          Rankings por Estado
+      <CardHeader className="bg-gradient-to-r from-purple-600 via-pink-600 to-red-600 text-white p-4 sm:p-6">
+        <CardTitle className="flex items-center gap-2 sm:gap-3 text-xl sm:text-2xl">
+          <TrendingUp className="w-5 h-5 sm:w-7 sm:h-7 flex-shrink-0" />
+          <span className="break-words">Rankings por Estado</span>
         </CardTitle>
-        <p className="text-purple-100">
+        <p className="text-purple-100 text-sm sm:text-base">
           Compare os custos entre todos os estados brasileiros
         </p>
       </CardHeader>
-      <CardContent className="p-6 bg-gray-50">
+      <CardContent className="p-4 sm:p-6 bg-gray-50">
         <Tabs defaultValue="escritura" className="w-full">
-          <TabsList className="grid w-full grid-cols-2 mb-6 bg-white shadow-sm">
-            <TabsTrigger value="escritura" className="font-semibold">Valores de Escritura</TabsTrigger>
-            <TabsTrigger value="registro" className="font-semibold">Valores de Registro</TabsTrigger>
+          <TabsList className="grid w-full grid-cols-2 mb-4 sm:mb-6 bg-white shadow-sm h-auto">
+            <TabsTrigger value="escritura" className="font-semibold text-xs sm:text-sm p-2 sm:p-3">
+              Valores de Escritura
+            </TabsTrigger>
+            <TabsTrigger value="registro" className="font-semibold text-xs sm:text-sm p-2 sm:p-3">
+              Valores de Registro
+            </TabsTrigger>
           </TabsList>
           
-          <TabsContent value="escritura" className="mt-6">
+          <TabsContent value="escritura" className="mt-4 sm:mt-6">
             <RankingList 
               data={rankingEscritura || []} 
               title="Custos de Escritura"
             />
           </TabsContent>
           
-          <TabsContent value="registro" className="mt-6">
+          <TabsContent value="registro" className="mt-4 sm:mt-6">
             <RankingList 
               data={rankingRegistro || []} 
               title="Custos de Registro"
