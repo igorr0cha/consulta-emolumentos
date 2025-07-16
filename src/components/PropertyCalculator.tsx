@@ -107,8 +107,13 @@ export const PropertyCalculator = () => {
                 )}
               </Button>
               
+              {/* Frase de estimativa */}
+              <p className="text-center text-sm text-gray-500 mt-3 italic">
+                Isso revela apenas uma estimativa
+              </p>
+              
               {!isFormValid && (
-                <p className="text-center text-sm text-gray-500 mt-3">
+                <p className="text-center text-sm text-gray-500 mt-2">
                   Preencha todos os campos obrigatórios para continuar
                 </p>
               )}

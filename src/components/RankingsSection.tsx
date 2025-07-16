@@ -1,18 +1,19 @@
 
-import React, { useState } from 'react';
+import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
-import { TrendingUp, TrendingDown } from 'lucide-react';
+import { TrendingUp } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 
-export const RankingsSection = () => {
-  const [valorReferencia] = useState(500000);
+interface RankingsSectionProps {
+  valorImovel?: number;
+}
 
+export const RankingsSection = ({ valorImovel = 500000 }: RankingsSectionProps) => {
   const { data: rankingEscritura } = useQuery({
-    queryKey: ['ranking-escritura', valorReferencia],
+    queryKey: ['ranking-escritura', valorImovel],
     queryFn: async () => {
       const { data: estados } = await supabase.from('estados').select('*');
       const rankings = [];
@@ -22,8 +23,8 @@ export const RankingsSection = () => {
           .from('valores_escritura')
           .select('*')
           .eq('estado_id', estado.id)
-          .lte('faixa_min', valorReferencia)
-          .or(`faixa_max.is.null,faixa_max.gte.${valorReferencia}`)
+          .lte('faixa_min', valorImovel)
+          .or(`faixa_max.is.null,faixa_max.gte.${valorImovel}`)
           .limit(1)
           .single();
 
@@ -32,7 +33,7 @@ export const RankingsSection = () => {
           if (escrituraData.valor_fixo) {
             valor = escrituraData.valor_fixo;
           } else if (escrituraData.percentual) {
-            valor = valorReferencia * escrituraData.percentual;
+            valor = valorImovel * escrituraData.percentual;
             if (escrituraData.teto) valor = Math.min(valor, escrituraData.teto);
           }
 
@@ -49,7 +50,7 @@ export const RankingsSection = () => {
   });
 
   const { data: rankingRegistro } = useQuery({
-    queryKey: ['ranking-registro', valorReferencia],
+    queryKey: ['ranking-registro', valorImovel],
     queryFn: async () => {
       const { data: estados } = await supabase.from('estados').select('*');
       const rankings = [];
@@ -59,8 +60,8 @@ export const RankingsSection = () => {
           .from('valores_registro')
           .select('*')
           .eq('estado_id', estado.id)
-          .lte('faixa_min', valorReferencia)
-          .or(`faixa_max.is.null,faixa_max.gte.${valorReferencia}`)
+          .lte('faixa_min', valorImovel)
+          .or(`faixa_max.is.null,faixa_max.gte.${valorImovel}`)
           .limit(1)
           .single();
 
@@ -69,7 +70,7 @@ export const RankingsSection = () => {
           if (registroData.valor_fixo) {
             valor = registroData.valor_fixo;
           } else if (registroData.percentual) {
-            valor = valorReferencia * registroData.percentual;
+            valor = valorImovel * registroData.percentual;
             if (registroData.teto) valor = Math.min(valor, registroData.teto);
           }
 
@@ -92,11 +93,14 @@ export const RankingsSection = () => {
     }).format(value);
   };
 
-  const getItemColor = (index: number, total: number) => {
+  const getGradientColor = (index: number, total: number) => {
     const percentage = index / (total - 1);
-    if (percentage <= 0.3) return 'bg-orange-500 border-orange-600 text-white'; // Mais caros
-    if (percentage >= 0.7) return 'bg-green-500 border-green-600 text-white'; // Mais baratos
-    return 'bg-yellow-500 border-yellow-600 text-white'; // Intermediários
+    
+    if (percentage <= 0.2) return 'from-red-500 to-red-400 text-white'; // Mais caros
+    if (percentage <= 0.4) return 'from-orange-500 to-orange-400 text-white';
+    if (percentage <= 0.6) return 'from-yellow-500 to-yellow-400 text-white';
+    if (percentage <= 0.8) return 'from-lime-500 to-lime-400 text-white';
+    return 'from-green-500 to-green-400 text-white'; // Mais baratos
   };
 
   const getPositionText = (index: number, total: number) => {
@@ -107,88 +111,46 @@ export const RankingsSection = () => {
   };
 
   const RankingList = ({ data, title }: { data: any[], title: string }) => (
-    <div className="space-y-6">
-      <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-xl border border-blue-200">
-        <p className="text-sm text-gray-600 mb-2">
-          Ranking baseado em imóvel de {formatCurrency(valorReferencia)}
+    <div className="space-y-4">
+      <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-xl border border-blue-200">
+        <p className="text-sm text-gray-600 mb-1">
+          Ranking baseado em imóvel de {formatCurrency(valorImovel)}
         </p>
-        <h3 className="font-bold text-gray-800 text-lg">{title}</h3>
+        <h3 className="font-bold text-gray-800">{title}</h3>
       </div>
 
-      <div className="grid gap-3">
+      <div className="space-y-2">
         {data?.map((item, index) => (
-          <Card key={item.uf} className={`transition-all duration-300 hover:shadow-lg ${getItemColor(index, data.length)} border-2`}>
-            <CardContent className="p-4">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-4">
-                  <div className="text-2xl font-bold opacity-90">
-                    #{index + 1}
-                  </div>
-                  <div>
-                    <div className="flex items-center gap-3">
-                      <span className="font-bold text-lg">{item.estado}</span>
-                      <Badge variant="outline" className="bg-white/20 border-white/30 text-white font-semibold">
-                        {item.uf}
-                      </Badge>
-                    </div>
-                    <span className="text-xs font-medium opacity-90">
-                      {getPositionText(index, data.length)}
-                    </span>
-                  </div>
+          <div 
+            key={item.uf} 
+            className={`bg-gradient-to-r ${getGradientColor(index, data.length)} rounded-lg p-3 shadow-sm transition-all duration-300 hover:shadow-md`}
+          >
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="text-lg font-bold opacity-90 min-w-[30px]">
+                  #{index + 1}
                 </div>
-                <div className="text-right">
-                  <span className="font-bold text-xl">
-                    {formatCurrency(item.valor)}
+                <div>
+                  <div className="flex items-center gap-2">
+                    <span className="font-semibold text-sm">{item.estado}</span>
+                    <Badge variant="outline" className="bg-white/20 border-white/30 text-white text-xs px-2 py-0">
+                      {item.uf}
+                    </Badge>
+                  </div>
+                  <span className="text-xs opacity-80">
+                    {getPositionText(index, data.length)}
                   </span>
                 </div>
               </div>
-            </CardContent>
-          </Card>
+              <div className="text-right">
+                <span className="font-bold text-sm">
+                  {formatCurrency(item.valor)}
+                </span>
+              </div>
+            </div>
+          </div>
         ))}
       </div>
-
-      {/* Gráfico Top 10 */}
-      <Card className="mt-8 shadow-xl border-0">
-        <CardHeader className="bg-gradient-to-r from-slate-600 to-gray-600 text-white">
-          <CardTitle className="text-xl">Top 10 - {title}</CardTitle>
-        </CardHeader>
-        <CardContent className="p-6">
-          <ResponsiveContainer width="100%" height={400}>
-            <BarChart data={data?.slice(0, 10) || []}>
-              <CartesianGrid strokeDasharray="3 3" opacity={0.3} />
-              <XAxis 
-                dataKey="uf" 
-                tick={{ fontSize: 12, fill: '#374151' }}
-              />
-              <YAxis 
-                tick={{ fontSize: 12, fill: '#374151' }}
-                tickFormatter={(value) => `R$ ${(value / 1000).toFixed(0)}k`}
-              />
-              <Tooltip 
-                formatter={(value) => [formatCurrency(Number(value)), 'Valor']}
-                labelFormatter={(label) => `Estado: ${label}`}
-                contentStyle={{
-                  backgroundColor: '#1f2937',
-                  border: 'none',
-                  borderRadius: '8px',
-                  color: 'white'
-                }}
-              />
-              <Bar 
-                dataKey="valor" 
-                fill="url(#gradient)"
-                radius={[4, 4, 0, 0]}
-              />
-              <defs>
-                <linearGradient id="gradient" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#3B82F6" />
-                  <stop offset="100%" stopColor="#1D4ED8" />
-                </linearGradient>
-              </defs>
-            </BarChart>
-          </ResponsiveContainer>
-        </CardContent>
-      </Card>
     </div>
   );
 

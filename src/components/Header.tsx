@@ -1,16 +1,7 @@
 
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-} from '@/components/ui/navigation-menu';
 import { Button } from '@/components/ui/button';
-import { Calculator, ExternalLink, BarChart3, Info } from 'lucide-react';
 
 export const Header = () => {
   const location = useLocation();
@@ -35,63 +26,72 @@ export const Header = () => {
           </Link>
 
           {/* Navigation Menu */}
-          <NavigationMenu>
-            <NavigationMenuList>
-              <NavigationMenuItem>
-                <Link to="/">
-                  <NavigationMenuLink 
-                    className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                      isActive('/') 
-                        ? 'bg-white/20 text-white' 
-                        : 'text-white/90 hover:text-white hover:bg-white/10'
-                    }`}
-                  >
-                    Consulta
-                  </NavigationMenuLink>
-                </Link>
-              </NavigationMenuItem>
+          <nav className="flex items-center space-x-6">
+            <Link to="/">
+              <Button 
+                variant="ghost"
+                className={`text-sm font-medium transition-colors ${
+                  isActive('/') 
+                    ? 'bg-white/20 text-white hover:bg-white/30' 
+                    : 'text-white/90 hover:text-white hover:bg-white/10'
+                }`}
+              >
+                Consulta
+              </Button>
+            </Link>
 
-              <NavigationMenuItem>
-                <NavigationMenuTrigger className="text-sm font-medium text-white/90 hover:text-white hover:bg-white/10 data-[state=open]:bg-white/20 data-[state=open]:text-white">
-                  Links Úteis
-                </NavigationMenuTrigger>
-                <NavigationMenuContent>
-                  <div className="grid gap-3 p-6 w-[400px]">
-                    <div className="row-span-3">
-                      <NavigationMenuLink asChild>
-                        <Link 
-                          to="/links-estados"
-                          className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
-                        >
-                          <ExternalLink className="h-6 w-6" />
-                          <div className="mb-2 mt-4 text-lg font-medium">
-                            Links dos Estados
-                          </div>
-                          <p className="text-sm leading-tight text-muted-foreground">
-                            Acesse os portais oficiais de escritura e registro de cada estado brasileiro
-                          </p>
-                        </Link>
-                      </NavigationMenuLink>
-                    </div>
-                  </div>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
+            <Link to="/links-estados">
+              <Button 
+                variant="ghost"
+                className={`text-sm font-medium transition-colors ${
+                  isActive('/links-estados') 
+                    ? 'bg-white/20 text-white hover:bg-white/30' 
+                    : 'text-white/90 hover:text-white hover:bg-white/10'
+                }`}
+              >
+                Links Úteis
+              </Button>
+            </Link>
 
-              <NavigationMenuItem>
-                <Link to="/sobre">
-                  <NavigationMenuLink 
-                    className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                      isActive('/sobre') 
-                        ? 'bg-white/20 text-white' 
-                        : 'text-white/90 hover:text-white hover:bg-white/10'
-                    }`}
-                  >
-                    Sobre
-                  </NavigationMenuLink>
-                </Link>
-              </NavigationMenuItem>
-            </NavigationMenuList>
-          </NavigationMenu>
+            <Link to="/tabelas-emolumentos">
+              <Button 
+                variant="ghost"
+                className={`text-sm font-medium transition-colors ${
+                  isActive('/tabelas-emolumentos') 
+                    ? 'bg-white/20 text-white hover:bg-white/30' 
+                    : 'text-white/90 hover:text-white hover:bg-white/10'
+                }`}
+              >
+                Tabelas de Emolumentos
+              </Button>
+            </Link>
+
+            <Link to="/aliquotas-itbi">
+              <Button 
+                variant="ghost"
+                className={`text-sm font-medium transition-colors ${
+                  isActive('/aliquotas-itbi') 
+                    ? 'bg-white/20 text-white hover:bg-white/30' 
+                    : 'text-white/90 hover:text-white hover:bg-white/10'
+                }`}
+              >
+                Alíquotas de ITBI
+              </Button>
+            </Link>
+
+            <Link to="/sobre">
+              <Button 
+                variant="ghost"
+                className={`text-sm font-medium transition-colors ${
+                  isActive('/sobre') 
+                    ? 'bg-white/20 text-white hover:bg-white/30' 
+                    : 'text-white/90 hover:text-white hover:bg-white/10'
+                }`}
+              >
+                Sobre
+              </Button>
+            </Link>
+          </nav>
         </div>
       </div>
     </header>

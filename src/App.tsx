@@ -8,6 +8,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Header } from "@/components/Header";
 import Index from "./pages/Index";
 import LinksEstados from "./pages/LinksEstados";
+import TabelasEmolumentos from "./pages/TabelasEmolumentos";
+import AliquotasItbi from "./pages/AliquotasItbi";
 import Sobre from "./pages/Sobre";
 import NotFound from "./pages/NotFound";
 
@@ -32,6 +34,8 @@ const App: React.FC = () => {
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/links-estados" element={<LinksEstados />} />
+              <Route path="/tabelas-emolumentos" element={<TabelasEmolumentos />} />
+              <Route path="/aliquotas-itbi" element={<AliquotasItbi />} />
               <Route path="/sobre" element={<Sobre />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
