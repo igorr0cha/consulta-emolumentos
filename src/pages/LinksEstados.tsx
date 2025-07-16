@@ -8,164 +8,164 @@ const linksEstados = [
   { 
     estado: 'Acre', 
     uf: 'AC', 
-    urlEscritura: 'https://www.ac.gov.br/escritura', 
-    urlRegistro: 'https://www.ac.gov.br/registro' 
+    urlEscritura: 'https://www.tjac.jus.br/wp-content/uploads/2025/01/TABELAS-DOS-EMOLUMENTOS-EXTRAJUDICIAIS-2025.pdf', 
+    urlRegistro: 'https://www.tjac.jus.br/wp-content/uploads/2025/01/TABELAS-DOS-EMOLUMENTOS-EXTRAJUDICIAIS-2025.pdf' 
   },
   { 
-    estado: 'Alagoas', 
+    estado: 'Alagoas',  
     uf: 'AL', 
-    urlEscritura: 'https://www.al.gov.br/escritura', 
-    urlRegistro: 'https://www.al.gov.br/registro' 
+    urlEscritura: 'https://cgj.tjal.jus.br/emolumentos/bf9d27ed2925aba59691c53091050b71.pdf', 
+    urlRegistro: 'https://cgj.tjal.jus.br/emolumentos/c451ddcdc46d27db878c52d0a10adb83.pdf' 
   },
   { 
     estado: 'Amapá', 
     uf: 'AP', 
-    urlEscritura: 'https://www.ap.gov.br/escritura', 
-    urlRegistro: 'https://www.ap.gov.br/registro' 
+    urlEscritura: 'https://cartoriosdopara.com.br/wp-content/uploads/2024/12/Tabela-2025-G4-2-por-cento-Liquido.pdf', 
+    urlRegistro: 'https://cartoriosdopara.com.br/wp-content/uploads/2024/12/Tabela-2025-G4-2-por-cento-Liquido.pdf' 
   },
   { 
     estado: 'Amazonas', 
     uf: 'AM', 
-    urlEscritura: 'https://www.am.gov.br/escritura', 
-    urlRegistro: 'https://www.am.gov.br/registro' 
+    urlEscritura: 'https://www.tjam.jus.br/index.php/ext-emolumentos/emolumentos-capital/44560-tabela-de-emolumentos-2023-provimento-n-447-2023-cgj-am/file', 
+    urlRegistro: 'https://www.tjam.jus.br/index.php/ext-emolumentos/emolumentos-capital/44560-tabela-de-emolumentos-2023-provimento-n-447-2023-cgj-am/file' 
   },
   { 
     estado: 'Bahia', 
     uf: 'BA', 
-    urlEscritura: 'https://www.ba.gov.br/escritura', 
-    urlRegistro: 'https://www.ba.gov.br/registro' 
+    urlEscritura: 'https://www.tjba.jus.br/tabeladecustas/tabela_custa.pdf', 
+    urlRegistro: 'https://www.tjba.jus.br/tabeladecustas/tabela_custa.pdf' 
   },
   { 
     estado: 'Ceará', 
     uf: 'CE', 
-    urlEscritura: 'https://www.ce.gov.br/escritura', 
-    urlRegistro: 'https://www.ce.gov.br/registro' 
+    urlEscritura: 'https://www.protestodetitulos.org.br/arquivos/tabelas/emolumentos/CE.pdf', 
+    urlRegistro: 'https://www.protestodetitulos.org.br/arquivos/tabelas/emolumentos/CE.pdf' 
   },
   { 
     estado: 'Distrito Federal', 
     uf: 'DF', 
-    urlEscritura: 'https://www.df.gov.br/escritura', 
-    urlRegistro: 'https://www.df.gov.br/registro' 
+    urlEscritura: 'https://anoregdf.org.br/wp-content/uploads/2025/01/Tabela-de-Emolumentos_2025_com-ISSQN_Anoreg_DF_versão-para-conferência.pdf', 
+    urlRegistro: 'https://anoregdf.org.br/wp-content/uploads/2025/01/Tabela-de-Emolumentos_2025_com-ISSQN_Anoreg_DF_versão-para-conferência.pdf' 
   },
   { 
     estado: 'Espírito Santo', 
     uf: 'ES', 
-    urlEscritura: 'https://www.es.gov.br/escritura', 
-    urlRegistro: 'https://www.es.gov.br/registro' 
+    urlEscritura: 'https://www.sinoreg-es.org.br/?pG=X19leGliZV9ub3RpY2lhcw==&in=OTYyMA==&filtro=#title_noticia', 
+    urlRegistro: 'https://www.sinoreg-es.org.br/?pG=X19leGliZV9ub3RpY2lhcw==&in=OTYyMA==&filtro=#title_noticia' 
   },
   { 
     estado: 'Goiás', 
     uf: 'GO', 
-    urlEscritura: 'https://www.go.gov.br/escritura', 
-    urlRegistro: 'https://www.go.gov.br/registro' 
+    urlEscritura: 'https://www.go.gov.br/escritura', //TODO: PEGA LINK CORRETO!
+    urlRegistro: 'https://1rigo.com/emolumentos/2025.pdf' 
   },
   { 
     estado: 'Maranhão', 
     uf: 'MA', 
-    urlEscritura: 'https://www.ma.gov.br/escritura', 
-    urlRegistro: 'https://www.ma.gov.br/registro' 
+    urlEscritura: 'https://cartoriosmaranhao.com.br/tabela-emolumentos', 
+    urlRegistro: 'https://cartoriosmaranhao.com.br/tabela-emolumentos' 
   },
   { 
     estado: 'Mato Grosso', 
     uf: 'MT', 
-    urlEscritura: 'https://www.mt.gov.br/escritura', 
-    urlRegistro: 'https://www.mt.gov.br/registro' 
+    urlEscritura: 'https://tabelionatobianchin.com.br/tabela-de-emolumentos/', 
+    urlRegistro: 'https://tabelionatobianchin.com.br/tabela-de-emolumentos/' 
   },
   { 
     estado: 'Mato Grosso do Sul', 
     uf: 'MS', 
-    urlEscritura: 'https://www.ms.gov.br/escritura', 
-    urlRegistro: 'https://www.ms.gov.br/registro' 
+    urlEscritura: 'https://www.cnbms.org.br/tabela-de-emolumentos/', 
+    urlRegistro: 'https://portal.digitalcartorios.com.br/uploads/RSAHSERVWH050/img-ced4ab37-6164-4ff0-baf8-759ff92708290.pdf'
   },
   { 
     estado: 'Minas Gerais', 
     uf: 'MG', 
-    urlEscritura: 'https://www.mg.gov.br/escritura', 
-    urlRegistro: 'https://www.mg.gov.br/registro' 
+    urlEscritura: 'https://www.tjmg.jus.br/data/files/A3/E3/67/01/C30E3910A67BFD399F28CCA8/Tabela%20de%20Emolumentos%202025.pdf', 
+    urlRegistro: 'https://www.tjmg.jus.br/data/files/A3/E3/67/01/C30E3910A67BFD399F28CCA8/Tabela%20de%20Emolumentos%202025.pdf' 
   },
   { 
     estado: 'Pará', 
     uf: 'PA', 
-    urlEscritura: 'https://www.pa.gov.br/escritura', 
-    urlRegistro: 'https://www.pa.gov.br/registro' 
+    urlEscritura: 'https://cartoriosdopara.com.br/wp-content/uploads/2024/12/Tabela-2025-G7-3-por-cento-Liquido.pdf', 
+    urlRegistro: 'https://cartoriosdopara.com.br/wp-content/uploads/2024/12/Tabela-2025-G7-3-por-cento-Liquido.pdf' 
   },
   { 
     estado: 'Paraíba', 
     uf: 'PB', 
-    urlEscritura: 'https://www.pb.gov.br/escritura', 
-    urlRegistro: 'https://www.pb.gov.br/registro' 
+    urlEscritura: 'https://www.pb.gov.br/escritura', //TODO: PEGA LINK CORRETO!
+    urlRegistro: 'https://www.pb.gov.br/registro' //TODO: PEGA LINK CORRETO!
   },
   { 
     estado: 'Paraná', 
     uf: 'PR', 
-    urlEscritura: 'https://www.pr.gov.br/escritura', 
-    urlRegistro: 'https://www.pr.gov.br/registro' 
+    urlEscritura: 'https://www.1tabelionato.not.br/tabela-de-emolumentos', 
+    urlRegistro: 'https://www.1tabelionato.not.br/tabela-de-emolumentos' 
   },
   { 
     estado: 'Pernambuco', 
     uf: 'PE', 
-    urlEscritura: 'https://www.pe.gov.br/escritura', 
-    urlRegistro: 'https://www.pe.gov.br/registro' 
+    urlEscritura: 'https://portal.tjpe.jus.br/documents/d/portal/tabela-de-emolumentos-2025', 
+    urlRegistro: 'https://portal.tjpe.jus.br/documents/d/portal/tabela-de-emolumentos-2025' 
   },
   { 
     estado: 'Piauí', 
     uf: 'PI', 
-    urlEscritura: 'https://www.pi.gov.br/escritura', 
-    urlRegistro: 'https://www.pi.gov.br/registro' 
+    urlEscritura: 'https://www.tjpi.jus.br/cobjud/modules/cobjud/TabelasDeCobrancas.fpg', 
+    urlRegistro: 'https://www.tjpi.jus.br/cobjud/modules/cobjud/TabelasDeCobrancas.fpg' 
   },
   { 
     estado: 'Rio de Janeiro', 
     uf: 'RJ', 
-    urlEscritura: 'https://www.rj.gov.br/escritura', 
-    urlRegistro: 'https://www.rj.gov.br/registro' 
+    urlEscritura: 'https://www.cartoriomeriti.com.br/wp-content/uploads/2025/01/Portaria-2838-2024.pdf', 
+    urlRegistro: 'https://www.cartoriomeriti.com.br/wp-content/uploads/2025/01/Portaria-2838-2024.pdf' 
   },
   { 
     estado: 'Rio Grande do Norte', 
     uf: 'RN', 
-    urlEscritura: 'https://www.rn.gov.br/escritura', 
-    urlRegistro: 'https://www.rn.gov.br/registro' 
+    urlEscritura: 'https://anoregrn.org.br/_private/upload/conteudo_arquivos/2/Tabela-de-Custas-2025-1-0-FRMP-SEM-ISS.pdf', 
+    urlRegistro: 'https://anoregrn.org.br/_private/upload/conteudo_arquivos/2/Tabela-de-Custas-2025-1-0-FRMP-SEM-ISS.pdf' 
   },
   { 
     estado: 'Rio Grande do Sul', 
     uf: 'RS', 
-    urlEscritura: 'https://www.rs.gov.br/escritura', 
-    urlRegistro: 'https://www.rs.gov.br/registro' 
+    urlEscritura: 'https://colegioregistralrs.org.br/tabela-emolumentos', 
+    urlRegistro: 'https://colegioregistralrs.org.br/tabela-emolumentos' 
   },
   { 
     estado: 'Rondônia', 
     uf: 'RO', 
-    urlEscritura: 'https://www.ro.gov.br/escritura', 
-    urlRegistro: 'https://www.ro.gov.br/registro' 
+    urlEscritura: 'https://www.anoreg.org.br/site/wp-content/uploads/2025/02/tabela_de_custas_2025.pdf', 
+    urlRegistro: 'https://www.anoreg.org.br/site/wp-content/uploads/2025/02/tabela_de_custas_2025.pdf' 
   },
   { 
     estado: 'Roraima', 
     uf: 'RR', 
-    urlEscritura: 'https://www.rr.gov.br/escritura', 
-    urlRegistro: 'https://www.rr.gov.br/registro' 
+    urlEscritura: 'https://www.irib.org.br/files/emolumento/Emolumentos-de-Roraima-2024.pdf', //TODO: PEGA LINK DO ANO CORRETO!
+    urlRegistro: 'https://www.irib.org.br/files/emolumento/Emolumentos-de-Roraima-2024.pdf' 
   },
   { 
     estado: 'Santa Catarina', 
     uf: 'SC', 
-    urlEscritura: 'https://www.sc.gov.br/escritura', 
-    urlRegistro: 'https://www.sc.gov.br/registro' 
+    urlEscritura: 'https://www.margarida.not.br/assets/pdf/tabela-de-emolumentos.pdf', 
+    urlRegistro: 'https://1ori.com.br/tabela/' 
   },
   { 
     estado: 'São Paulo', 
     uf: 'SP', 
-    urlEscritura: 'https://www.sp.gov.br/escritura', 
-    urlRegistro: 'https://www.sp.gov.br/registro' 
+    urlEscritura: 'https://cnbsp.org.br/tabelas-de-custas-e-emolumentos-padrao/#1618854980325-ac7d5176-a6c3', 
+    urlRegistro: 'https://www.13registro.com.br/tabela-de-custas' 
   },
   { 
     estado: 'Sergipe', 
     uf: 'SE', 
-    urlEscritura: 'https://www.se.gov.br/escritura', 
-    urlRegistro: 'https://www.se.gov.br/registro' 
+    urlEscritura: 'https://www.tjse.jus.br/tjnet/publicacoes/visualizar_publicacao.wsp?tmp.idPublicacao=86129', 
+    urlRegistro: 'https://www.tjse.jus.br/tjnet/publicacoes/visualizar_publicacao.wsp?tmp.idPublicacao=86129' 
   },
   { 
     estado: 'Tocantins', 
     uf: 'TO', 
-    urlEscritura: 'https://www.to.gov.br/escritura', 
-    urlRegistro: 'https://www.to.gov.br/registro' 
+    urlEscritura: 'https://wwa.tjto.jus.br/diario/pesquisa/materia/870849', 
+    urlRegistro: 'https://wwa.tjto.jus.br/diario/pesquisa/materia/870849' 
   },
 ];
 
