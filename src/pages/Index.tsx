@@ -8,7 +8,7 @@ const Index = () => {
 
   return (
     <div className="w-full">
-      <PropertyCalculator />
+      <PropertyCalculator onValorImovelChange={setValorImovel} />
       <div className="max-w-7xl mx-auto px-4 py-8">
         <RankingsSection valorImovel={valorImovel} />
       </div>

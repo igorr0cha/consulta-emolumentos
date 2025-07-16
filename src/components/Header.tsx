@@ -49,19 +49,6 @@ export const Header = () => {
                     : 'text-white/90 hover:text-white hover:bg-white/10'
                 }`}
               >
-                Links Úteis
-              </Button>
-            </Link>
-
-            <Link to="/tabelas-emolumentos">
-              <Button 
-                variant="ghost"
-                className={`text-sm font-medium transition-colors ${
-                  isActive('/tabelas-emolumentos') 
-                    ? 'bg-white/20 text-white hover:bg-white/30' 
-                    : 'text-white/90 hover:text-white hover:bg-white/10'
-                }`}
-              >
                 Tabelas de Emolumentos
               </Button>
             </Link>

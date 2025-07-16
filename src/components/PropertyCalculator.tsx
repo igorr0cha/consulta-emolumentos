@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Calculator, Sparkles, TrendingUp } from 'lucide-react';
@@ -10,7 +10,11 @@ import { FormData } from '@/types/database';
 import { useCalculation } from '@/hooks/useCalculation';
 import { useEstados } from '@/hooks/useEstados';
 
-export const PropertyCalculator = () => {
+interface PropertyCalculatorProps {
+  onValorImovelChange?: (valor: number) => void;
+}
+
+export const PropertyCalculator = ({ onValorImovelChange }: PropertyCalculatorProps) => {
   const [formData, setFormData] = useState<FormData>({
     estado: '',
     municipio: '',
@@ -22,6 +26,13 @@ export const PropertyCalculator = () => {
 
   const { data: estados } = useEstados();
   const { data: calculation, isLoading: isCalculating } = useCalculation(calculationParams);
+
+  // Notificar mudanças no valor do imóvel
+  useEffect(() => {
+    if (onValorImovelChange && formData.valorImovel > 0) {
+      onValorImovelChange(formData.valorImovel);
+    }
+  }, [formData.valorImovel, onValorImovelChange]);
 
   const handleCalculate = () => {
     if (!formData.estado || !formData.valorImovel || !formData.tipoProcuracao) {

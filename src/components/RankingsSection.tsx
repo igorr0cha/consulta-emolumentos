@@ -6,12 +6,14 @@ import { Badge } from '@/components/ui/badge';
 import { TrendingUp } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
+import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer } from 'recharts';
 
 interface RankingsSectionProps {
-  valorImovel?: number;
+  valorImovel: number;
 }
 
-export const RankingsSection = ({ valorImovel = 500000 }: RankingsSectionProps) => {
+export const RankingsSection = ({ valorImovel }: RankingsSectionProps) => {
   const { data: rankingEscritura } = useQuery({
     queryKey: ['ranking-escritura', valorImovel],
     queryFn: async () => {
@@ -96,11 +98,11 @@ export const RankingsSection = ({ valorImovel = 500000 }: RankingsSectionProps) 
   const getGradientColor = (index: number, total: number) => {
     const percentage = index / (total - 1);
     
-    if (percentage <= 0.2) return 'from-red-500 to-red-400 text-white'; // Mais caros
+    if (percentage <= 0.2) return 'from-red-500 to-red-400 text-white';
     if (percentage <= 0.4) return 'from-orange-500 to-orange-400 text-white';
     if (percentage <= 0.6) return 'from-yellow-500 to-yellow-400 text-white';
     if (percentage <= 0.8) return 'from-lime-500 to-lime-400 text-white';
-    return 'from-green-500 to-green-400 text-white'; // Mais baratos
+    return 'from-green-500 to-green-400 text-white';
   };
 
   const getPositionText = (index: number, total: number) => {
@@ -108,6 +110,25 @@ export const RankingsSection = ({ valorImovel = 500000 }: RankingsSectionProps) 
     if (percentage <= 0.3) return 'MAIS CARO';
     if (percentage >= 0.7) return 'MAIS BARATO';
     return 'INTERMEDIÁRIO';
+  };
+
+  const getBarColor = (index: number, total: number) => {
+    const percentage = index / (total - 1);
+    
+    if (percentage <= 0.2) return '#ef4444';
+    if (percentage <= 0.4) return '#f97316';
+    if (percentage <= 0.6) return '#eab308';
+    if (percentage <= 0.8) return '#84cc16';
+    return '#22c55e';
+  };
+
+  const prepareChartData = (data: any[]) => {
+    if (!data) return [];
+    return data.map((item, index) => ({
+      ...item,
+      fill: getBarColor(index, data.length),
+      shortName: item.uf,
+    }));
   };
 
   const RankingList = ({ data, title }: { data: any[], title: string }) => (
@@ -150,6 +171,63 @@ export const RankingsSection = ({ valorImovel = 500000 }: RankingsSectionProps) 
             </div>
           </div>
         ))}
+      </div>
+
+      {/* Gráfico Interativo */}
+      <div className="mt-8">
+        <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-lg">
+          <h4 className="text-lg font-bold text-gray-800 mb-4 text-center">
+            Visualização Gráfica - {title}
+          </h4>
+          <ChartContainer
+            config={{
+              valor: {
+                label: "Valor",
+                color: "hsl(var(--chart-1))",
+              },
+            }}
+            className="h-[400px] w-full"
+          >
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart
+                data={prepareChartData(data)}
+                margin={{ top: 20, right: 30, left: 20, bottom: 60 }}
+              >
+                <XAxis 
+                  dataKey="shortName" 
+                  angle={-45}
+                  textAnchor="end"
+                  height={60}
+                  fontSize={12}
+                />
+                <YAxis 
+                  tickFormatter={(value) => formatCurrency(value)}
+                  fontSize={12}
+                />
+                <ChartTooltip
+                  content={
+                    <ChartTooltipContent
+                      formatter={(value, name) => [
+                        formatCurrency(Number(value)),
+                        "Valor"
+                      ]}
+                      labelFormatter={(label) => {
+                        const item = data?.find(d => d.uf === label);
+                        return item ? `${item.estado} (${item.uf})` : label;
+                      }}
+                    />
+                  }
+                />
+                <Bar 
+                  dataKey="valor" 
+                  radius={[4, 4, 0, 0]}
+                  stroke="#fff"
+                  strokeWidth={1}
+                />
+              </BarChart>
+            </ResponsiveContainer>
+          </ChartContainer>
+        </div>
       </div>
     </div>
   );
