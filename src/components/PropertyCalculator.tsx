@@ -124,7 +124,7 @@ export const PropertyCalculator = ({ onValorImovelChange }: PropertyCalculatorPr
               </Button>
               
               {/* Frase de estimativa */}
-              <p className="text-center text-xs sm:text-sm text-gray-500 mt-3 italic">
+              <p className="text-center text-xs sm:text-sm text-gray-600 mt-3 italic font-bold">
                 Isso revela apenas uma estimativa
               </p>
               
