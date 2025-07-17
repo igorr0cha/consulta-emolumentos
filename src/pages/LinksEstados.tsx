@@ -56,7 +56,7 @@ const linksEstados = [
   { 
     estado: 'Goiás', 
     uf: 'GO', 
-    urlEscritura: 'https://www.go.gov.br/escritura', //TODO: PEGA LINK CORRETO!
+    urlEscritura: 'https://cnbgo.org.br/tabela-de-emolumentos/',
     urlRegistro: 'https://1rigo.com/emolumentos/2025.pdf' 
   },
   { 
@@ -92,8 +92,8 @@ const linksEstados = [
   { 
     estado: 'Paraíba', 
     uf: 'PB', 
-    urlEscritura: 'https://anoregpb.org.br/wp-content/uploads/2025/01/TABELA-EMOLUMENTOS-2025.pdf', //TODO: PEGA LINK CORRETO!
-    urlRegistro: 'https://anoregpb.org.br/wp-content/uploads/2025/01/TABELA-EMOLUMENTOS-2025.pdf' //TODO: PEGA LINK CORRETO!
+    urlEscritura: 'https://anoregpb.org.br/wp-content/uploads/2025/01/TABELA-EMOLUMENTOS-2025.pdf', 
+    urlRegistro: 'https://anoregpb.org.br/wp-content/uploads/2025/01/TABELA-EMOLUMENTOS-2025.pdf' 
   },
   { 
     estado: 'Paraná', 
@@ -179,6 +179,9 @@ const LinksEstados = () => {
           </h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
             Acesse os portais oficiais de escritura e registro de todos os estados brasileiros
+          </p>
+          <p className="text-xl text-black-600 max-w-3xl mx-auto">
+              Valores atualizados para <b>2025</b>
           </p>
         </div>
 
