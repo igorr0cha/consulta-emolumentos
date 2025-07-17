@@ -92,8 +92,8 @@ const linksEstados = [
   { 
     estado: 'Paraíba', 
     uf: 'PB', 
-    urlEscritura: 'https://www.pb.gov.br/escritura', //TODO: PEGA LINK CORRETO!
-    urlRegistro: 'https://www.pb.gov.br/registro' //TODO: PEGA LINK CORRETO!
+    urlEscritura: 'https://anoregpb.org.br/wp-content/uploads/2025/01/TABELA-EMOLUMENTOS-2025.pdf', //TODO: PEGA LINK CORRETO!
+    urlRegistro: 'https://anoregpb.org.br/wp-content/uploads/2025/01/TABELA-EMOLUMENTOS-2025.pdf' //TODO: PEGA LINK CORRETO!
   },
   { 
     estado: 'Paraná', 
