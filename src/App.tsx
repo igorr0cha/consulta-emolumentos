@@ -9,7 +9,6 @@ import { Header } from "@/components/Header";
 import Index from "./pages/Index";
 import LinksEstados from "./pages/LinksEstados";
 import AliquotasItbi from "./pages/AliquotasItbi";
-import Sobre from "./pages/Sobre";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient({
@@ -34,7 +33,6 @@ const App: React.FC = () => {
               <Route path="/" element={<Index />} />
               <Route path="/links-estados" element={<LinksEstados />} />
               <Route path="/aliquotas-itbi" element={<AliquotasItbi />} />
-              <Route path="/sobre" element={<Sobre />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </div>
