@@ -2,13 +2,18 @@
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Search, Building2, MapPin, Percent } from 'lucide-react';
+import { Search, Building2, MapPin, Percent, Filter } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
+import { useEstados } from '@/hooks/useEstados';
 
 const AliquotasItbi = () => {
   const [searchTerm, setSearchTerm] = useState('');
+  const [selectedUF, setSelectedUF] = useState('');
+  
+  const { data: estados } = useEstados();
 
   const { data: aliquotas, isLoading } = useQuery({
     queryKey: ['aliquotas-itbi'],
@@ -43,12 +48,18 @@ const AliquotasItbi = () => {
     const uf = item.estados?.uf?.toLowerCase() || '';
     const aliquotaStr = formatPercentage(item.aliquota).toLowerCase();
     
-    return (
+    // Filtro por UF selecionada
+    const matchesUF = !selectedUF || item.estados?.uf === selectedUF;
+    
+    // Filtro por busca de texto
+    const matchesSearch = !searchTerm || (
       municipio.includes(searchLower) ||
       estado.includes(searchLower) ||
       uf.includes(searchLower) ||
       aliquotaStr.includes(searchLower)
     );
+    
+    return matchesUF && matchesSearch;
   });
 
   return (
@@ -73,7 +84,7 @@ const AliquotasItbi = () => {
         {/* Search Bar */}
         <Card className="mb-6 shadow-lg border-0">
           <CardContent className="p-6">
-            <div className="relative">
+            <div className="relative mb-4">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
               <Input
                 type="text"
@@ -82,6 +93,24 @@ const AliquotasItbi = () => {
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="pl-10 h-12 text-lg border-gray-300 focus:border-blue-500"
               />
+            </div>
+            
+            {/* Filter by UF */}
+            <div className="flex items-center gap-3">
+              <Filter className="w-5 h-5 text-gray-500" />
+              <Select value={selectedUF} onValueChange={setSelectedUF}>
+                <SelectTrigger className="w-48 h-10">
+                  <SelectValue placeholder="Filtrar por UF" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="">Todos os estados</SelectItem>
+                  {estados?.map((estado) => (
+                    <SelectItem key={estado.id} value={estado.uf}>
+                      {estado.uf} - {estado.nome}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
           </CardContent>
         </Card>
