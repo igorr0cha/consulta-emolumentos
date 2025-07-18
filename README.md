@@ -1,6 +1,5 @@
 # Consulta Emolumentos
 
-![Capa do Projeto](https://lovable.dev/opengraph-image-p98pqg.png)
 
 ## 📖 Sobre o Projeto
 
