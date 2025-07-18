@@ -49,7 +49,7 @@ const AliquotasItbi = () => {
     const aliquotaStr = formatPercentage(item.aliquota).toLowerCase();
     
     // Filtro por UF selecionada
-    const matchesUF = !selectedUF || item.estados?.uf === selectedUF;
+    const matchesUF = !selectedUF || selectedUF === 'todos' || item.estados?.uf === selectedUF;
     
     // Filtro por busca de texto
     const matchesSearch = !searchTerm || (
@@ -103,7 +103,7 @@ const AliquotasItbi = () => {
                   <SelectValue placeholder="Filtrar por UF" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">Todos os estados</SelectItem>
+                  <SelectItem value="todos">Todos os estados</SelectItem>
                   {estados?.map((estado) => (
                     <SelectItem key={estado.id} value={estado.uf}>
                       {estado.uf} - {estado.nome}
