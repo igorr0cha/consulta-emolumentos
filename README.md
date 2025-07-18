@@ -1,73 +1,58 @@
-# Welcome to your Lovable project
+# Consulta Emolumentos
 
-## Project info
+O projeto **Consulta Emolumentos** é uma plataforma completa para consulta e comparação de valores de formalização imobiliária entre todos os estados brasileiros. Com ele, é possível comparar custos, economizar tempo e tomar decisões informadas.
 
-**URL**: https://lovable.dev/projects/42bf2a0e-fae2-4a7e-8a0c-f6fa4e2a4858
+## Funcionalidades
 
-## How can I edit this code?
+* **Consulta de Emolumentos:** Calcule os valores de escritura, registro, ITBI e procuração para um determinado imóvel em qualquer estado do Brasil.
+* **Comparação entre Estados:** Compare os custos de formalização de um imóvel entre o estado selecionado e o Distrito Federal.
+* **Rankings de Custos:** Visualize rankings dos estados com os emolumentos mais caros e mais baratos para escritura e registro.
+* **Links Úteis:** Acesse os portais oficiais de escritura e registro de todos os estados brasileiros.
+* **Consulta de Alíquotas de ITBI:** Consulte as alíquotas do Imposto sobre Transmissão de Bens Imóveis (ITBI) por município.
 
-There are several ways of editing your application.
+## Tecnologias Utilizadas
 
-**Use Lovable**
+* **Frontend:**
+    * [React](https://reactjs.org/)
+    * [Vite](https://vitejs.dev/)
+    * [TypeScript](https://www.typescriptlang.org/)
+    * [Tailwind CSS](https://tailwindcss.com/)
+    * [shadcn/ui](https://ui.shadcn.com/)
+    * [React Router](https://reactrouter.com/)
+    * [TanStack Query](https://tanstack.com/query/v4)
+    * [Recharts](https://recharts.org/)
+* **Backend (BaaS):**
+    * [Supabase](https://supabase.io/)
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/42bf2a0e-fae2-4a7e-8a0c-f6fa4e2a4858) and start prompting.
+## Começando
 
-Changes made via Lovable will be committed automatically to this repo.
+Estas instruções permitirão que você obtenha uma cópia do projeto em operação na sua máquina local para fins de desenvolvimento e teste.
 
-**Use your preferred IDE**
+### Pré-requisitos
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+* [Node.js](https://nodejs.org/) (versão 18 ou superior)
+* [npm](https://www.npmjs.com/)
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+### Instalação
 
-Follow these steps:
+1.  Clone o repositório:
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+    ```bash
+    git clone [https://github.com/igorr0cha/consulta-emolumentos.git](https://github.com/igorr0cha/consulta-emolumentos.git)
+    ```
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+2.  Navegue até o diretório do projeto:
 
-# Step 3: Install the necessary dependencies.
-npm i
+    ```bash
+    cd consulta-emolumentos
+    ```
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
+3.  Instale as dependências:
 
-**Edit a file directly in GitHub**
+    ```bash
+    npm install
+    ```
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## Variáveis de Ambiente
 
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/42bf2a0e-fae2-4a7e-8a0c-f6fa4e2a4858) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+Para rodar o projeto, você precisará criar um arquivo `.env.local` na raiz do projeto e adicionar as seguintes variáveis de ambiente:
