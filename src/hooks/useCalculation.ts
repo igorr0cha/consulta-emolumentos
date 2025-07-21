@@ -2,6 +2,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { CalculationResult } from '@/types/database';
+import { calcularEmolumento } from '@/lib/calculationPatterns';
 
 interface CalculationParams {
   estadoId: string;
@@ -17,29 +18,46 @@ export const useCalculation = (params: CalculationParams | null) => {
       
       const { estadoId, valorImovel, tipoProcuracao } = params;
       
-      // Buscar valores de escritura
+      // Buscar padrão de cálculo do estado
+      const { data: regraData, error: regraError } = await supabase
+        .from('regras_calculo_estado')
+        .select('padrao_calculo')
+        .eq('estado_id', estadoId)
+        .maybeSingle();
+
+      if (regraError) {
+        console.error('Erro ao buscar regra de cálculo:', regraError);
+      }
+
+      const padraoCalculo = regraData?.padrao_calculo || 1;
+
+      // Buscar dados de escritura
       const { data: escrituraData, error: escrituraError } = await supabase
-        .from('valores_escritura')
+        .from('valores_emolumentos')
         .select('*')
         .eq('estado_id', estadoId)
-        .lte('faixa_min', valorImovel)
-        .or(`faixa_max.is.null,faixa_max.gte.${valorImovel}`)
+        .eq('tipo_emolumento', 'escritura')
+        .lte('faixa_minima', valorImovel)
+        .or(`faixa_maxima.is.null,faixa_maxima.gte.${valorImovel}`)
+        .order('faixa_minima', { ascending: false })
         .limit(1)
-        .single();
+        .maybeSingle();
 
       if (escrituraError) {
         console.error('Erro ao buscar valores de escritura:', escrituraError);
       }
 
-      // Buscar valores de registro
+      // Buscar dados de registro
       const { data: registroData, error: registroError } = await supabase
-        .from('valores_registro')
+        .from('valores_emolumentos')
         .select('*')
         .eq('estado_id', estadoId)
-        .lte('faixa_min', valorImovel)
-        .or(`faixa_max.is.null,faixa_max.gte.${valorImovel}`)
+        .eq('tipo_emolumento', 'registro')
+        .lte('faixa_minima', valorImovel)
+        .or(`faixa_maxima.is.null,faixa_maxima.gte.${valorImovel}`)
+        .order('faixa_minima', { ascending: false })
         .limit(1)
-        .single();
+        .maybeSingle();
 
       if (registroError) {
         console.error('Erro ao buscar valores de registro:', registroError);
@@ -51,7 +69,7 @@ export const useCalculation = (params: CalculationParams | null) => {
         .select('*')
         .eq('estado_id', estadoId)
         .limit(1)
-        .single();
+        .maybeSingle();
 
       if (itbiError) {
         console.error('Erro ao buscar alíquotas ITBI:', itbiError);
@@ -64,30 +82,39 @@ export const useCalculation = (params: CalculationParams | null) => {
         .eq('estado_id', estadoId)
         .eq('descricao', tipoProcuracao)
         .limit(1)
-        .single();
+        .maybeSingle();
 
       if (procuracaoError) {
         console.error('Erro ao buscar valor da procuração:', procuracaoError);
       }
 
-      // Calcular valores
-      const calcularValor = (dados: any, valorImovel: number) => {
-        if (!dados) return 0;
-        
-        if (dados.valor_fixo) {
-          return dados.valor_fixo;
-        }
-        
-        if (dados.percentual) {
-          const valorCalculado = valorImovel * dados.percentual;
-          return dados.teto ? Math.min(valorCalculado, dados.teto) : valorCalculado;
-        }
-        
-        return 0;
-      };
+      // Calcular emolumentos usando os padrões específicos
+      const valorEscritura = escrituraData 
+        ? calcularEmolumento(valorImovel, {
+            faixa_minima: escrituraData.faixa_minima,
+            faixa_maxima: escrituraData.faixa_maxima,
+            custo_base: escrituraData.custo_base,
+            custo_por_faixa: escrituraData.custo_por_faixa,
+            tamanho_faixa_excedente: escrituraData.tamanho_faixa_excedente,
+            emolumento_maximo: escrituraData.emolumento_maximo,
+            pmcmv: escrituraData.pmcmv,
+            frj: escrituraData.frj
+          }, padraoCalculo)
+        : 0;
 
-      const valorEscritura = calcularValor(escrituraData, valorImovel);
-      const valorRegistro = calcularValor(registroData, valorImovel);
+      const valorRegistro = registroData 
+        ? calcularEmolumento(valorImovel, {
+            faixa_minima: registroData.faixa_minima,
+            faixa_maxima: registroData.faixa_maxima,
+            custo_base: registroData.custo_base,
+            custo_por_faixa: registroData.custo_por_faixa,
+            tamanho_faixa_excedente: registroData.tamanho_faixa_excedente,
+            emolumento_maximo: registroData.emolumento_maximo,
+            pmcmv: registroData.pmcmv,
+            frj: registroData.frj
+          }, padraoCalculo)
+        : 0;
+
       const aliquotaITBI = itbiData?.aliquota || 0;
       const valorITBI = valorImovel * aliquotaITBI;
       const valorProcuracao = procuracaoData?.valor || 0;

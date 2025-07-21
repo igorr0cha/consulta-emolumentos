@@ -7,6 +7,7 @@ import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
 import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer } from 'recharts';
+import { calcularEmolumento } from '@/lib/calculationPatterns';
 
 interface RankingsSectionProps {
   valorImovel: number;
@@ -20,23 +21,38 @@ export const RankingsSection = ({ valorImovel }: RankingsSectionProps) => {
       const rankings = [];
 
       for (const estado of estados || []) {
+        // Buscar padrão de cálculo do estado
+        const { data: regraData } = await supabase
+          .from('regras_calculo_estado')
+          .select('padrao_calculo')
+          .eq('estado_id', estado.id)
+          .maybeSingle();
+
+        const padraoCalculo = regraData?.padrao_calculo || 1;
+
+        // Buscar dados de escritura
         const { data: escrituraData } = await supabase
-          .from('valores_escritura')
+          .from('valores_emolumentos')
           .select('*')
           .eq('estado_id', estado.id)
-          .lte('faixa_min', valorImovel)
-          .or(`faixa_max.is.null,faixa_max.gte.${valorImovel}`)
+          .eq('tipo_emolumento', 'escritura')
+          .lte('faixa_minima', valorImovel)
+          .or(`faixa_maxima.is.null,faixa_maxima.gte.${valorImovel}`)
+          .order('faixa_minima', { ascending: false })
           .limit(1)
-          .single();
+          .maybeSingle();
 
         if (escrituraData) {
-          let valor = 0;
-          if (escrituraData.valor_fixo) {
-            valor = escrituraData.valor_fixo;
-          } else if (escrituraData.percentual) {
-            valor = valorImovel * escrituraData.percentual;
-            if (escrituraData.teto) valor = Math.min(valor, escrituraData.teto);
-          }
+          const valor = calcularEmolumento(valorImovel, {
+            faixa_minima: escrituraData.faixa_minima,
+            faixa_maxima: escrituraData.faixa_maxima,
+            custo_base: escrituraData.custo_base,
+            custo_por_faixa: escrituraData.custo_por_faixa,
+            tamanho_faixa_excedente: escrituraData.tamanho_faixa_excedente,
+            emolumento_maximo: escrituraData.emolumento_maximo,
+            pmcmv: escrituraData.pmcmv,
+            frj: escrituraData.frj
+          }, padraoCalculo);
 
           rankings.push({
             estado: estado.nome,
@@ -57,23 +73,38 @@ export const RankingsSection = ({ valorImovel }: RankingsSectionProps) => {
       const rankings = [];
 
       for (const estado of estados || []) {
+        // Buscar padrão de cálculo do estado
+        const { data: regraData } = await supabase
+          .from('regras_calculo_estado')
+          .select('padrao_calculo')
+          .eq('estado_id', estado.id)
+          .maybeSingle();
+
+        const padraoCalculo = regraData?.padrao_calculo || 1;
+
+        // Buscar dados de registro
         const { data: registroData } = await supabase
-          .from('valores_registro')
+          .from('valores_emolumentos')
           .select('*')
           .eq('estado_id', estado.id)
-          .lte('faixa_min', valorImovel)
-          .or(`faixa_max.is.null,faixa_max.gte.${valorImovel}`)
+          .eq('tipo_emolumento', 'registro')
+          .lte('faixa_minima', valorImovel)
+          .or(`faixa_maxima.is.null,faixa_maxima.gte.${valorImovel}`)
+          .order('faixa_minima', { ascending: false })
           .limit(1)
-          .single();
+          .maybeSingle();
 
         if (registroData) {
-          let valor = 0;
-          if (registroData.valor_fixo) {
-            valor = registroData.valor_fixo;
-          } else if (registroData.percentual) {
-            valor = valorImovel * registroData.percentual;
-            if (registroData.teto) valor = Math.min(valor, registroData.teto);
-          }
+          const valor = calcularEmolumento(valorImovel, {
+            faixa_minima: registroData.faixa_minima,
+            faixa_maxima: registroData.faixa_maxima,
+            custo_base: registroData.custo_base,
+            custo_por_faixa: registroData.custo_por_faixa,
+            tamanho_faixa_excedente: registroData.tamanho_faixa_excedente,
+            emolumento_maximo: registroData.emolumento_maximo,
+            pmcmv: registroData.pmcmv,
+            frj: registroData.frj
+          }, padraoCalculo);
 
           rankings.push({
             estado: estado.nome,

@@ -16,21 +16,21 @@ export type Database = {
     Tables: {
       aliquotas_itbi: {
         Row: {
-          aliquota: number
+          aliquota: number | null
           created_at: string
           estado_id: string
           id: string
           municipio: string | null
         }
         Insert: {
-          aliquota: number
+          aliquota?: number | null
           created_at?: string
           estado_id: string
           id?: string
           municipio?: string | null
         }
         Update: {
-          aliquota?: number
+          aliquota?: number | null
           created_at?: string
           estado_id?: string
           id?: string
@@ -99,43 +99,28 @@ export type Database = {
           },
         ]
       }
-      valores_escritura: {
+      regras_calculo_estado: {
         Row: {
           created_at: string
           estado_id: string
-          faixa_max: number | null
-          faixa_min: number
           id: string
-          percentual: number | null
-          teto: number | null
-          tipo_imovel: string | null
-          valor_fixo: number | null
+          padrao_calculo: number
         }
         Insert: {
           created_at?: string
           estado_id: string
-          faixa_max?: number | null
-          faixa_min: number
           id?: string
-          percentual?: number | null
-          teto?: number | null
-          tipo_imovel?: string | null
-          valor_fixo?: number | null
+          padrao_calculo: number
         }
         Update: {
           created_at?: string
           estado_id?: string
-          faixa_max?: number | null
-          faixa_min?: number
           id?: string
-          percentual?: number | null
-          teto?: number | null
-          tipo_imovel?: string | null
-          valor_fixo?: number | null
+          padrao_calculo?: number
         }
         Relationships: [
           {
-            foreignKeyName: "valores_escritura_estado_id_fkey"
+            foreignKeyName: "regras_calculo_estado_estado_id_fkey"
             columns: ["estado_id"]
             isOneToOne: false
             referencedRelation: "estados"
@@ -143,43 +128,52 @@ export type Database = {
           },
         ]
       }
-      valores_registro: {
+      valores_emolumentos: {
         Row: {
           created_at: string
+          custo_base: number | null
+          custo_por_faixa: number | null
+          emolumento_maximo: number | null
           estado_id: string
-          faixa_max: number | null
-          faixa_min: number
+          faixa_maxima: number | null
+          faixa_minima: number
+          frj: number | null
           id: string
-          percentual: number | null
-          teto: number | null
-          tipo_imovel: string | null
-          valor_fixo: number | null
+          pmcmv: number | null
+          tamanho_faixa_excedente: number | null
+          tipo_emolumento: string | null
         }
         Insert: {
           created_at?: string
+          custo_base?: number | null
+          custo_por_faixa?: number | null
+          emolumento_maximo?: number | null
           estado_id: string
-          faixa_max?: number | null
-          faixa_min: number
+          faixa_maxima?: number | null
+          faixa_minima: number
+          frj?: number | null
           id?: string
-          percentual?: number | null
-          teto?: number | null
-          tipo_imovel?: string | null
-          valor_fixo?: number | null
+          pmcmv?: number | null
+          tamanho_faixa_excedente?: number | null
+          tipo_emolumento?: string | null
         }
         Update: {
           created_at?: string
+          custo_base?: number | null
+          custo_por_faixa?: number | null
+          emolumento_maximo?: number | null
           estado_id?: string
-          faixa_max?: number | null
-          faixa_min?: number
+          faixa_maxima?: number | null
+          faixa_minima?: number
+          frj?: number | null
           id?: string
-          percentual?: number | null
-          teto?: number | null
-          tipo_imovel?: string | null
-          valor_fixo?: number | null
+          pmcmv?: number | null
+          tamanho_faixa_excedente?: number | null
+          tipo_emolumento?: string | null
         }
         Relationships: [
           {
-            foreignKeyName: "valores_registro_estado_id_fkey"
+            foreignKeyName: "valores_escritura_estado_id_fkey"
             columns: ["estado_id"]
             isOneToOne: false
             referencedRelation: "estados"
