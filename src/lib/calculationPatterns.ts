@@ -19,23 +19,23 @@ export const calcularPadrao1 = (valorImovel: number, dados: EmolumentoData): num
 export const calcularPadrao2 = (valorImovel: number, dados: EmolumentoData): number => {
   if (!dados) return 0;
 
-  const custoBase = dados.custo_base || 0;
-  
-  // Se não há custo por faixa ou é zerado, retorna apenas o custo base
+  // Se não há custo_por_faixa, significa que é uma faixa de valor fixo.
+  // Nestes casos, o valor final é o emolumento_maximo daquela faixa.
   if (!dados.custo_por_faixa || dados.custo_por_faixa === 0) {
-    return custoBase;
+    // CORREÇÃO APLICADA AQUI:
+    // Retorna o emolumento_maximo em vez do custo_base, que é nulo para faixas fixas.
+    return dados.emolumento_maximo || 0;
   }
 
-  // Se há faixa máxima e valor está dentro dela, retorna custo base
-  if (dados.faixa_maxima && valorImovel <= dados.faixa_maxima) {
-    return custoBase;
-  }
+  // Se a função chegou até aqui, é porque se trata de uma faixa com cálculo de excedente.
+  const custoBase = dados.custo_base || 0;
 
-  // Calcular excedente acima da faixa máxima (ou mínima se não há máxima)
-  const baseFaixa = dados.faixa_maxima || dados.faixa_minima;
+  // A base para o cálculo do excedente é o início desta faixa.
+  const baseFaixa = dados.faixa_minima;
   const valorExcedente = valorImovel - baseFaixa;
   
-  if (valorExcedente <= 0) return custoBase;
+  // Garante que não haja cálculo se o valor for menor que o início da faixa.
+  if (valorExcedente < 0) return custoBase;
 
   const tamanhoFaixa = dados.tamanho_faixa_excedente || 1;
   const numeroFaixas = Math.ceil(valorExcedente / tamanhoFaixa);
@@ -43,7 +43,7 @@ export const calcularPadrao2 = (valorImovel: number, dados: EmolumentoData): num
   
   const resultado = custoBase + custoExcedente;
   
-  // Limitar pelo emolumento máximo se existir
+  // Limita o resultado ao teto, se houver um definido para a faixa de cálculo.
   return dados.emolumento_maximo ? Math.min(resultado, dados.emolumento_maximo) : resultado;
 };
 
