@@ -47,14 +47,38 @@ export const calcularPadrao2 = (valorImovel: number, dados: EmolumentoData): num
   return dados.emolumento_maximo ? Math.min(resultado, dados.emolumento_maximo) : resultado;
 };
 
-// Padrão 3 (Ex: Rio de Janeiro) - Igual ao Padrão 2 + acréscimo de 2%
+// Padrão 3 (Ex: Rio de Janeiro) - Corrigido
 export const calcularPadrao3 = (valorImovel: number, dados: EmolumentoData): number => {
-  const resultadoBase = calcularPadrao2(valorImovel, dados);
+  if (!dados) return 0;
+
+  const custoBase = dados.custo_base || 0;
   
-  // Aplicar acréscimo de 2% sobre o custo por faixa (baseado na nota 19ª)
-  const acrescimo = dados.custo_por_faixa ? dados.custo_por_faixa * 0.02 : 0;
+  // ---> PARTE 1: Lógica para faixas de valor fixo <---
+  // Se não há custo_por_faixa, é uma faixa de valor fixo.
+  if (!dados.custo_por_faixa || dados.custo_por_faixa === 0) {
+    // Para R$ 100.000,00, a função entraria aqui e retornaria o valor correto.
+    return dados.emolumento_maximo || 0;
+  }
+
+  // ---> PARTE 2: Lógica para a faixa de cálculo excedente <---
+  // A partir daqui, o código só executa para valores acima de R$ 464.455,57.
+  const baseFaixa = dados.faixa_minima;
+  const valorExcedente = valorImovel - baseFaixa;
+
+  if (valorExcedente < 0) return custoBase;
+
+  const tamanhoFaixa = dados.tamanho_faixa_excedente || 1;
+  const custoPorFaixa = dados.custo_por_faixa || 0;
   
-  return resultadoBase + acrescimo;
+  const acrescimoPorFaixa = dados.pmcmv || (custoPorFaixa * 0.02);
+  const numeroFaixas = Math.ceil(valorExcedente / tamanhoFaixa);
+  
+  // Aplica o custo da faixa + o acréscimo para cada faixa excedente
+  const custoTotalExcedente = numeroFaixas * (custoPorFaixa + acrescimoPorFaixa);
+  
+  const resultado = custoBase + custoTotalExcedente;
+  
+  return dados.emolumento_maximo ? Math.min(resultado, dados.emolumento_maximo) : resultado;
 };
 
 // Padrão 4 (Ex: Santa Catarina) - Soma Emolumentos + FRJ
