@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
@@ -20,23 +19,33 @@ export const FormSection: React.FC<FormSectionProps> = ({ formData, setFormData 
   const { data: procuracoes, isLoading: isLoadingProcuracoes } = useProcuracoes(estadoSelecionado?.id || null);
   const { data: municipios, isLoading: isLoadingMunicipios } = useMunicipios(estadoSelecionado?.id || null);
 
-  const formatCurrency = (value: string) => {
-    const numericValue = value.replace(/\D/g, '');
-    const formattedValue = new Intl.NumberFormat('pt-BR', {
-      style: 'currency',
-      currency: 'BRL',
-    }).format(parseInt(numericValue) / 100);
-    return formattedValue;
+  // Função otimizada para lidar com a entrada de valores monetários
+  const handleValorImovelChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // 1. Extrai apenas os dígitos do valor inserido
+    const rawValue = e.target.value.replace(/\D/g, '');
+
+    // 2. Se o campo estiver vazio, define o valor como 0
+    if (!rawValue) {
+      setFormData(prev => ({ ...prev, valorImovel: 0 }));
+      return;
+    }
+
+    // 3. Converte a string de dígitos para um número (representando centavos)
+    const valueInCents = parseInt(rawValue, 10);
+
+    // 4. Atualiza o estado com o valor em formato numérico correto (dividido por 100)
+    setFormData(prev => ({ ...prev, valorImovel: valueInCents / 100 }));
   };
 
-  const handleValueChange = (value: string) => {
-    const numericValue = parseInt(value.replace(/\D/g, '')) / 100;
-    setFormData(prev => ({ ...prev, valorImovel: numericValue }));
-  };
+  // Formata o valor numérico do estado para a exibição no formato BRL
+  const displayValue = new Intl.NumberFormat('pt-BR', {
+    style: 'currency',
+    currency: 'BRL',
+  }).format(formData.valorImovel);
 
   return (
     <div className="space-y-6">
-      {/* Dicas de Uso */}
+      {/* Dicas de Uso (mantido como estava) */}
       <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
         <div className="flex items-start gap-3">
           <Info className="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" />
@@ -65,8 +74,8 @@ export const FormSection: React.FC<FormSectionProps> = ({ formData, setFormData 
             onValueChange={(value) => setFormData(prev => ({ 
               ...prev, 
               estado: value, 
-              municipio: '', // Reset município quando muda estado
-              tipoProcuracao: '' // Reset procuração quando muda estado
+              municipio: '',
+              tipoProcuracao: ''
             }))}
           >
             <SelectTrigger className="h-12 border-2 border-gray-200 hover:border-blue-300 transition-colors">
@@ -118,7 +127,7 @@ export const FormSection: React.FC<FormSectionProps> = ({ formData, setFormData 
           </Select>
         </div>
 
-        {/* Valor do Imóvel */}
+        {/* Valor do Imóvel (com a nova lógica) */}
         <div className="space-y-2">
           <Label htmlFor="valorImovel" className="text-sm font-medium text-gray-700 flex items-center gap-2">
             Valor do Imóvel *
@@ -127,8 +136,8 @@ export const FormSection: React.FC<FormSectionProps> = ({ formData, setFormData 
           <Input
             id="valorImovel"
             placeholder="R$ 0,00"
-            value={formData.valorImovel > 0 ? formatCurrency((formData.valorImovel * 100).toString()) : ''}
-            onChange={(e) => handleValueChange(e.target.value)}
+            value={formData.valorImovel > 0 ? displayValue : ''}
+            onChange={handleValorImovelChange}
             className="h-12 border-2 border-gray-200 hover:border-blue-300 focus:border-blue-500 transition-colors text-lg font-semibold"
           />
         </div>
