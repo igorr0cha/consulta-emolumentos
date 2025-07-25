@@ -91,7 +91,7 @@ export const PropertyCalculator = ({ onValorImovelChange }: PropertyCalculatorPr
 
         {/* Formulário Redesenhado */}
         <Card className="shadow-2xl border-0 overflow-hidden">
-          <CardHeader className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white relative">
+          <CardHeader className="bg-gradient-to-r from-blue-500 to-blue-600 text-white relative">
             <div className="absolute inset-0 bg-black/10"></div>
             <CardTitle className="flex items-center gap-2 sm:gap-3 text-lg sm:text-xl md:text-2xl relative z-10">
               <Calculator className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 flex-shrink-0" />
@@ -107,7 +107,7 @@ export const PropertyCalculator = ({ onValorImovelChange }: PropertyCalculatorPr
             <div className="mt-6 sm:mt-8 pt-4 sm:pt-6 border-t border-gray-200">
               <Button 
                 onClick={handleCalculate} 
-                className="w-full h-12 sm:h-14 text-sm sm:text-base md:text-lg font-semibold bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:from-blue-700 hover:via-indigo-700 hover:to-purple-700 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02]"
+                className="w-full h-12 sm:h-14 text-sm sm:text-base md:text-lg font-semibold bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02]"
                 disabled={!isFormValid || isCalculating}
               >
                 {isCalculating ? (
@@ -124,9 +124,14 @@ export const PropertyCalculator = ({ onValorImovelChange }: PropertyCalculatorPr
               </Button>
               
               {/* Frase de estimativa */}
-              <p className="text-center text-xs sm:text-sm text-gray-600 mt-3 italic font-bold">
-                Isso revela apenas uma estimativa
-              </p>
+              <div className="text-center mt-3 space-y-1">
+                <p className="text-sm sm:text-base text-gray-700 font-bold bg-yellow-50 px-3 py-2 rounded-lg border-l-4 border-yellow-400">
+                  Isso revela apenas uma estimativa
+                </p>
+                <p className="text-xs sm:text-sm text-gray-600 italic">
+                  Os valores podem sofrer algumas alterações
+                </p>
+              </div>
               
               {!isFormValid && (
                 <p className="text-center text-xs sm:text-sm text-gray-500 mt-2">

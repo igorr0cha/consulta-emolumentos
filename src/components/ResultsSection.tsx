@@ -130,20 +130,20 @@ export const ResultsSection: React.FC<ResultsSectionProps> = ({ formData, calcul
                 {formatCurrency(calculation.subtotal)}
               </p>
               <span className="text-xs text-gray-500">
-                Registro + Escritura
+                Escritura + Procuração
               </span>
             </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-gradient-to-r from-indigo-500 to-purple-600 text-white">
+        <Card className="bg-gradient-to-r from-blue-500 to-blue-600 text-white">
           <CardContent className="p-4 sm:p-6">
             <div className="text-center">
               <span className="text-xs sm:text-sm font-medium opacity-90">Valor Total</span>
               <p className="text-2xl sm:text-3xl font-bold break-all">
                 {formatCurrency(calculation.valorTotal)}
               </p>
-              <Badge className="mt-2 bg-white text-indigo-600 text-xs sm:text-sm">
+              <Badge className="mt-2 bg-white text-blue-600 text-xs sm:text-sm">
                 Total Final
               </Badge>
             </div>

@@ -118,7 +118,7 @@ export const useCalculation = (params: CalculationParams | null) => {
       const aliquotaITBI = itbiData?.aliquota || 0;
       const valorITBI = valorImovel * aliquotaITBI;
       const valorProcuracao = procuracaoData?.valor || 0;
-      const subtotal = valorEscritura + valorRegistro;
+      const subtotal = valorEscritura + valorProcuracao;
       const valorTotal = subtotal + valorITBI + valorProcuracao;
 
       return {
