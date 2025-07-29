@@ -266,7 +266,7 @@ export const RankingsSection = ({ valorImovel }: RankingsSectionProps) => {
 
   return (
     <Card className="shadow-2xl border-0 overflow-hidden">
-      <CardHeader className="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-4 sm:p-6">
+      <CardHeader className="bg-gradient-to-r from-[#007581] to-[#009bb0] text-white p-4 sm:p-6">
         <CardTitle className="flex items-center gap-2 sm:gap-3 text-xl sm:text-2xl">
           <TrendingUp className="w-5 h-5 sm:w-7 sm:h-7 flex-shrink-0" />
           <span className="break-words">Rankings por Estado</span>

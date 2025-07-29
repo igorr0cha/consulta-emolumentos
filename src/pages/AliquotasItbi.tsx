@@ -68,7 +68,7 @@ const AliquotasItbi = () => {
         {/* Header */}
         <div className="text-center py-8">
           <div className="flex justify-center mb-4">
-            <div className="bg-gradient-to-r from-blue-600 to-indigo-600 p-3 rounded-xl shadow-lg">
+            <div className="bg-gradient-to-r from-[#007581] to-[#009bb0] p-3 rounded-xl shadow-lg">
               <Building2 className="w-10 h-10 text-white" />
             </div>
           </div>
@@ -117,7 +117,7 @@ const AliquotasItbi = () => {
 
         {/* Table */}
         <Card className="shadow-2xl border-0 overflow-hidden">
-          <CardHeader className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white">
+          <CardHeader className="bg-gradient-to-r from-[#007581] to-[#009bb0] text-white">
             <CardTitle className="flex items-center gap-3 text-2xl">
               <Percent className="w-7 h-7" />
               Lista de Alíquotas por Município

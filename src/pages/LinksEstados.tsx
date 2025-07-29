@@ -186,7 +186,7 @@ const LinksEstados = () => {
         </div>
 
         <Card className="shadow-xl">
-          <CardHeader style={{ backgroundColor: '#00489a' }} className="text-white">
+          <CardHeader className="bg-gradient-to-r from-[#007581] to-[#009bb0] text-white">
             <CardTitle className="flex items-center gap-2 text-2xl">
               <Globe className="w-6 h-6" />
               Portais Governamentais - Escritura e Registro
@@ -207,7 +207,7 @@ const LinksEstados = () => {
                         <Button
                           size="sm"
                           onClick={() => window.open(item.urlEscritura, '_blank')}
-                          className="bg-blue-600 hover:bg-blue-700 w-full flex items-center gap-2"
+                          className="bg-[#00535c] hover:bg-[#004248] w-full flex items-center gap-2"
                         >
                           <PenTool className="w-4 h-4" />
                           <span>Escritura</span>

@@ -65,7 +65,7 @@ export const PropertyCalculator = ({ onValorImovelChange }: PropertyCalculatorPr
           <div className="absolute inset-0 bg-gradient-to-r from-blue-600/10 to-indigo-600/10 rounded-2xl sm:rounded-3xl"></div>
           <div className="relative">
             <div className="flex justify-center mb-4 sm:mb-6">
-              <div className="bg-gradient-to-r from-blue-600 to-indigo-600 p-3 sm:p-4 rounded-xl sm:rounded-2xl shadow-lg">
+              <div className="bg-gradient-to-r from-[#007581] to-[#009bb0] p-3 sm:p-4 rounded-xl sm:rounded-2xl shadow-lg">
                 <Calculator className="w-8 h-8 sm:w-12 sm:h-12 text-white" />
               </div>
             </div>
@@ -91,7 +91,7 @@ export const PropertyCalculator = ({ onValorImovelChange }: PropertyCalculatorPr
 
         {/* Formulário Redesenhado */}
         <Card className="shadow-2xl border-0 overflow-hidden">
-          <CardHeader className="bg-gradient-to-r from-blue-500 to-blue-600 text-white relative">
+          <CardHeader className="bg-gradient-to-r from-[#007581] to-[#009bb0] text-white relative">
             <div className="absolute inset-0 bg-black/10"></div>
             <CardTitle className="flex items-center gap-2 sm:gap-3 text-lg sm:text-xl md:text-2xl relative z-10">
               <Calculator className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 flex-shrink-0" />
@@ -107,7 +107,7 @@ export const PropertyCalculator = ({ onValorImovelChange }: PropertyCalculatorPr
             <div className="mt-6 sm:mt-8 pt-4 sm:pt-6 border-t border-gray-200">
               <Button 
                 onClick={handleCalculate} 
-                className="w-full h-12 sm:h-14 text-sm sm:text-base md:text-lg font-semibold bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02]"
+                className="w-full h-12 sm:h-14 text-sm sm:text-base md:text-lg font-semibold bg-[#007581] hover:bg-[#006971] shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02]"
                 disabled={!isFormValid || isCalculating}
               >
                 {isCalculating ? (

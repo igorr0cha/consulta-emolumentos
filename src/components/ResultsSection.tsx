@@ -136,7 +136,7 @@ export const ResultsSection: React.FC<ResultsSectionProps> = ({ formData, calcul
           </CardContent>
         </Card>
 
-        <Card className="bg-gradient-to-r from-blue-500 to-blue-600 text-white">
+        <Card className="bg-[#007581] text-white">
           <CardContent className="p-4 sm:p-6">
             <div className="text-center">
               <span className="text-xs sm:text-sm font-medium opacity-90">Valor Total</span>
