@@ -19,20 +19,12 @@ export const Header = () => {
   };
 
   return (
-    <header className="shadow-lg border-b sticky top-0 z-50" style={{ backgroundColor: '#00489a' }}>
+    <header className="shadow-lg border-b sticky top-0 z-50" style={{ backgroundColor: '#007581' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          {/* Logo */}
-          <Link to="/" className="flex items-center space-x-3" onClick={closeMobileMenu}>
-            <img 
-              src="documentall-logo.png" 
-              alt="Logo Documentall"
-              className="w-8 h-8 sm:w-10 sm:h-10 object-contain rounded" 
-            />
-            <div>
-              <h1 className="text-lg sm:text-xl font-bold text-white">Documentall</h1>
-              <p className="text-xs text-white/80 hidden sm:block">Consulta de Emolumentos</p>
-            </div>
+          {/* Title */}
+          <Link to="/" className="flex items-center" onClick={closeMobileMenu}>
+            <h1 className="text-xl sm:text-2xl font-bold text-white">Consulta de Emolumentos</h1>
           </Link>
 
           {/* Desktop Navigation Menu */}
@@ -94,7 +86,7 @@ export const Header = () => {
 
         {/* Mobile Navigation Menu */}
         {isMobileMenuOpen && (
-          <div className="md:hidden border-t border-white/20 bg-blue-800/90 backdrop-blur-sm">
+          <div className="md:hidden border-t border-white/20" style={{ backgroundColor: '#006069' }}>
             <nav className="px-2 pt-2 pb-3 space-y-1">
               <Link to="/" onClick={closeMobileMenu}>
                 <Button 
