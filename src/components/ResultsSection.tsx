@@ -28,7 +28,7 @@ export const ResultsSection: React.FC<ResultsSectionProps> = ({ formData, calcul
   return (
     <div className="space-y-4 sm:space-y-6">
       {/* Resumo da Consulta */}
-      <Card className="border-l-4 border-l-blue-500">
+      <Card className="border-l-4 border-l--[#00535c]">
         <CardHeader className="p-4 sm:p-6">
           <CardTitle className="text-base sm:text-lg text-gray-800">Resumo da Consulta</CardTitle>
         </CardHeader>
@@ -68,18 +68,18 @@ export const ResultsSection: React.FC<ResultsSectionProps> = ({ formData, calcul
           </CardContent>
         </Card>
 
-        <Card className="bg-gradient-to-br from-blue-50 to-blue-100 border-blue-200">
+        <Card className="bg-gradient-to-br from-[#e8fcff] to-[#c0e6eb] border-blue-200">
           <CardContent className="p-3 sm:p-4">
             <div className="flex items-center justify-between">
               <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-2 mb-1">
-                  <Building className="w-3 h-3 sm:w-4 sm:h-4 text-blue-600 flex-shrink-0" />
-                  <span className="text-xs sm:text-sm font-medium text-blue-800">ITBI</span>
+                  <Building className="w-3 h-3 sm:w-4 sm:h-4 text-[#00535c] flex-shrink-0" />
+                  <span className="text-xs sm:text-sm font-medium text-[#00535c]">ITBI</span>
                 </div>
-                <p className="text-sm sm:text-lg font-bold text-blue-900 break-all">
+                <p className="text-sm sm:text-lg font-bold text-[#00535c] break-all">
                   {formatCurrency(calculation.valorITBI)}
                 </p>
-                <p className="text-xs text-blue-600">
+                <p className="text-xs text-[#00535c]">
                   Alíquota: {formatPercentage(calculation.aliquotaITBI)}
                 </p>
               </div>
@@ -143,7 +143,7 @@ export const ResultsSection: React.FC<ResultsSectionProps> = ({ formData, calcul
               <p className="text-2xl sm:text-3xl font-bold break-all">
                 {formatCurrency(calculation.valorTotal)}
               </p>
-              <Badge className="mt-2 bg-white text-blue-600 text-xs sm:text-sm">
+              <Badge className="mt-2 bg-[#00535c] text-white text-xs sm:text-sm">
                 Total Final
               </Badge>
             </div>

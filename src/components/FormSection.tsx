@@ -46,10 +46,10 @@ export const FormSection: React.FC<FormSectionProps> = ({ formData, setFormData 
   return (
     <div className="space-y-6">
       {/* Dicas de Uso (mantido como estava) */}
-      <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+      <div className="bg-[#e6f4f5] border border-[#8db7ba] rounded-lg p-4">
         <div className="flex items-start gap-3">
-          <Info className="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" />
-          <div className="text-sm text-blue-800">
+          <Info className="w-5 h-5 text-[#007581] mt-0.5 flex-shrink-0" />
+          <div className="text-sm text-[#007581]">
             <p className="font-semibold mb-2">Como usar a plataforma:</p>
             <ul className="space-y-1 text-xs">
               <li>• Selecione o estado desejado para consulta</li>
@@ -78,7 +78,7 @@ export const FormSection: React.FC<FormSectionProps> = ({ formData, setFormData 
               tipoProcuracao: ''
             }))}
           >
-            <SelectTrigger className="h-12 border-2 border-gray-200 hover:border-blue-300 transition-colors">
+            <SelectTrigger className="h-12 border-2 border-gray-200 hover:border-[#8db7ba] transition-colors">
               <SelectValue placeholder="Selecione o estado" />
             </SelectTrigger>
             <SelectContent className="max-h-60">
@@ -106,7 +106,7 @@ export const FormSection: React.FC<FormSectionProps> = ({ formData, setFormData 
             onValueChange={(value) => setFormData(prev => ({ ...prev, municipio: value }))}
             disabled={!formData.estado}
           >
-            <SelectTrigger className="h-12 border-2 border-gray-200 hover:border-blue-300 transition-colors">
+            <SelectTrigger className="h-12 border-2 border-gray-200 hover:border-[#8db7ba] transition-colors">
               <SelectValue placeholder={formData.estado ? "Selecione o município" : "Primeiro selecione um estado"} />
             </SelectTrigger>
             <SelectContent className="max-h-60">
@@ -138,7 +138,7 @@ export const FormSection: React.FC<FormSectionProps> = ({ formData, setFormData 
             placeholder="R$ 0,00"
             value={formData.valorImovel > 0 ? displayValue : ''}
             onChange={handleValorImovelChange}
-            className="h-12 border-2 border-gray-200 hover:border-blue-300 focus:border-blue-500 transition-colors text-lg font-semibold"
+            className="h-12 border-2 border-gray-200 hover:border-[#8db7ba] focus:border-[#8db7ba] transition-colors text-lg font-semibold"
           />
         </div>
 
@@ -153,7 +153,7 @@ export const FormSection: React.FC<FormSectionProps> = ({ formData, setFormData 
             onValueChange={(value) => setFormData(prev => ({ ...prev, tipoProcuracao: value }))}
             disabled={!formData.estado}
           >
-            <SelectTrigger className="h-12 border-2 border-gray-200 hover:border-blue-300 transition-colors">
+            <SelectTrigger className="h-12 border-2 border-gray-200 hover:border-[#8db7ba] transition-colors">
               <SelectValue placeholder={formData.estado ? "Selecione o tipo" : "Primeiro selecione um estado"} />
             </SelectTrigger>
             <SelectContent>

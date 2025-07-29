@@ -78,11 +78,11 @@ export const PropertyCalculator = ({ onValorImovelChange }: PropertyCalculatorPr
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-2 sm:gap-4 mt-6 sm:mt-8 px-4">
               <div className="flex items-center gap-2 bg-white/80 px-3 sm:px-4 py-2 rounded-full shadow-sm">
-                <Sparkles className="w-4 h-4 text-blue-600 flex-shrink-0" />
+                <Sparkles className="w-4 h-4 text-[#00535c] flex-shrink-0" />
                 <span className="text-xs sm:text-sm font-medium">Dados Atualizados</span>
               </div>
               <div className="flex items-center gap-2 bg-white/80 px-3 sm:px-4 py-2 rounded-full shadow-sm">
-                <TrendingUp className="w-4 h-4 text-green-600 flex-shrink-0" />
+                <TrendingUp className="w-4 h-4 text-[#007581] flex-shrink-0" />
                 <span className="text-xs sm:text-sm font-medium">Comparação Automática</span>
               </div>
             </div>

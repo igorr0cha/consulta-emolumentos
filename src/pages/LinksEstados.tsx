@@ -217,7 +217,7 @@ const LinksEstados = () => {
                         <Button
                           size="sm"
                           onClick={() => window.open(item.urlRegistro, '_blank')}
-                          className="bg-green-600 hover:bg-green-700 w-full flex items-center gap-2"
+                          className="bg-[#a9ced4] hover:bg-[#8ab5ba] text-[#00454d] w-full flex items-center gap-2"
                         >
                           <FileText className="w-4 h-4" />
                           <span>Registro</span>

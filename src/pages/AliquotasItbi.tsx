@@ -91,7 +91,7 @@ const AliquotasItbi = () => {
                 placeholder="Pesquisar por município, estado, UF ou alíquota..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10 h-12 text-lg border-gray-300 focus:border-blue-500"
+                className="pl-10 h-12 text-lg border-gray-300 focus:border-[#8db7ba]"
               />
             </div>
             
@@ -129,7 +129,7 @@ const AliquotasItbi = () => {
           <CardContent className="p-0">
             {isLoading ? (
               <div className="p-8 text-center">
-                <div className="inline-block w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+                <div className="inline-block w-8 h-8 border-4 border-[#8db7ba] border-t-transparent rounded-full animate-spin"></div>
                 <p className="mt-4 text-gray-600">Carregando alíquotas...</p>
               </div>
             ) : (
@@ -160,7 +160,7 @@ const AliquotasItbi = () => {
                           {item.municipio || 'Aplicação geral'}
                         </TableCell>
                         <TableCell className="py-4">
-                          <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                          <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-[#b9edf0] text-[#02535e]">
                             {item.estados?.uf}
                           </span>
                         </TableCell>
@@ -168,7 +168,7 @@ const AliquotasItbi = () => {
                           {item.estados?.nome}
                         </TableCell>
                         <TableCell className="py-4 text-right">
-                          <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-green-100 text-green-800">
+                          <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-[#007581] text-white">
                             {formatPercentage(item.aliquota)}
                           </span>
                         </TableCell>
