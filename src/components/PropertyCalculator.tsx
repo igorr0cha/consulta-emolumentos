@@ -126,12 +126,14 @@ export const PropertyCalculator = ({ onValorImovelChange }: PropertyCalculatorPr
               
               {/* Frase de estimativa */}
               <div className="text-center mt-3 space-y-1">
-                <p className="text-sm sm:text-base text-gray-700 font-bold bg-yellow-50 px-3 py-2 rounded-lg border-l-4 border-yellow-400">
-                  Isso revela apenas uma estimativa
-                </p>
-                <p className="text-xs sm:text-sm text-gray-600 italic">
+                <p className="text-sm sm:text-base text-gray-700 font-bold bg-yellow-100 px-3 py-2 rounded-lg border-l-4 border-yellow-400">
+                  Isso revela apenas uma ESTIMATIVA
+                  <br />
+                  <p className="text-xs sm:text-sm text-gray-500 ">
                   Os valores podem sofrer algumas alterações
+                  </p>
                 </p>
+                
               </div>
               
               {!isFormValid && (
