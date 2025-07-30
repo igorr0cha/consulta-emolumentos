@@ -8,6 +8,7 @@ interface CalculationParams {
   estadoId: string;
   valorImovel: number;
   tipoProcuracao: string;
+  municipio?: string;
 }
 
 export const useCalculation = (params: CalculationParams | null) => {
@@ -16,7 +17,7 @@ export const useCalculation = (params: CalculationParams | null) => {
     queryFn: async (): Promise<CalculationResult> => {
       if (!params) throw new Error('Parâmetros de cálculo não fornecidos');
       
-      const { estadoId, valorImovel, tipoProcuracao } = params;
+      const { estadoId, valorImovel, tipoProcuracao, municipio } = params;
       
       // Buscar padrão de cálculo do estado
       const { data: regraData, error: regraError } = await supabase
@@ -64,10 +65,21 @@ export const useCalculation = (params: CalculationParams | null) => {
       }
 
       // Buscar alíquota ITBI
-      const { data: itbiData, error: itbiError } = await supabase
+      let itbiQuery = supabase
         .from('aliquotas_itbi')
         .select('*')
-        .eq('estado_id', estadoId)
+        .eq('estado_id', estadoId);
+
+      // Se município foi selecionado, buscar pela alíquota específica do município
+      if (municipio && municipio.trim() !== '') {
+        itbiQuery = itbiQuery.eq('municipio', municipio);
+      } else {
+        // Se não há município específico, buscar alíquota geral do estado (municipio null)
+        itbiQuery = itbiQuery.is('municipio', null);
+      }
+
+      const { data: itbiData, error: itbiError } = await itbiQuery
+        .order('created_at', { ascending: false })
         .limit(1)
         .maybeSingle();
 

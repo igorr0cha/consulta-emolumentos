@@ -46,6 +46,7 @@ export const PropertyCalculator = ({ onValorImovelChange }: PropertyCalculatorPr
       estadoId: estadoSelecionado.id,
       valorImovel: formData.valorImovel,
       tipoProcuracao: formData.tipoProcuracao,
+      municipio: formData.municipio,
     });
     setShowResults(true);
 
