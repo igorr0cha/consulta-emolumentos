@@ -86,5 +86,6 @@ Com as dependências instaladas e as variáveis de ambiente configuradas, inicie
 
 ```bash
 npm run dev
+```
 
 A aplicação estará disponível em http://localhost:8080.
