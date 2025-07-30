@@ -7,6 +7,8 @@ interface EmolumentoData {
   emolumento_maximo: number | null;
   pmcmv: number | null;
   frj: number | null;
+  tipo_emolumento?: string | null; // LINHA NOVA PARA PADRÃO 5 (CEARÁ)
+
 }
 
 // Padrão 1 (Ex: Amazonas) - Busca faixa correspondente e retorna emolumento máximo
@@ -89,41 +91,59 @@ export const calcularPadrao4 = (valorImovel: number, dados: EmolumentoData): num
   return dados.emolumento_maximo || 0;
 };
 
-// Padrão 5 (Ex: Ceará) - Cálculo multifatorial complexo
+// Padrão 5 (Ex: Ceará) - Lógica de cálculo corrigida e unificada
 export const calcularPadrao5 = (valorImovel: number, dados: EmolumentoData): number => {
-  if (!dados) return 0;
+    if (!dados) return 0;
 
-  const LIMITE_BASE = 23322.58;
-  const DIVISOR_EXCEDENTE = 10.98;
-  const MULTIPLICADOR_EXCEDENTE = 0.23;
-  const LIMITE_EMOLUMENTO = 3088.94;
-  const PERCENTUAL_FERMOJU = 0.05;
-  const BASE_FERMOJU = 47.84;
-  const SELO = 0; // Valor do selo não especificado, assumindo 0
-  const PERCENTUAL_FAADEP = 0; // Percentual não especificado
-  const PERCENTUAL_FRMMP = 0; // Percentual não especificado
+    // Se a faixa tem um valor máximo, é uma faixa de valor fixo.
+    if (dados.faixa_maxima !== null) {
+        return dados.emolumento_maximo || 0;
+    }
 
-  // Cálculo do Emolumento Base
-  let emolumentoBase = dados.custo_base || 0;
-  
-  if (valorImovel > LIMITE_BASE) {
-    const excedente = valorImovel - LIMITE_BASE;
-    const adicionalExcedente = (excedente / DIVISOR_EXCEDENTE) * MULTIPLICADOR_EXCEDENTE;
-    emolumentoBase = Math.min(emolumentoBase + adicionalExcedente, LIMITE_EMOLUMENTO);
-  }
+    // A partir daqui, é a faixa de valor excedente.
+    let emolumento = 0;
+    let fermoju = 0;
+    let selo = 0;
+    let fadep = 0;
+    let frmmp = 0;
+    let subtotal = 0;
+    
+    const custoBase = dados.custo_base || 0;
 
-  // Cálculo do FERMOJU
-  const fermoju = (emolumentoBase * PERCENTUAL_FERMOJU) + BASE_FERMOJU;
+    // Cálculo do emolumento para a faixa excedente
+    const excedente = valorImovel - dados.faixa_minima;
+    if (excedente < 0) { // Garante que não calcule valores negativos se algo der errado
+        return custoBase;
+    }
+    
+    const numeroDeFrações = Math.ceil(excedente / (dados.tamanho_faixa_excedente || 1));
+    const custoExcedente = numeroDeFrações * (dados.custo_por_faixa || 0);
+    
+    let emolumentoCalculado = custoBase + custoExcedente;
 
-  // Subtotal
-  const subtotal = emolumentoBase + fermoju + SELO;
+    if (dados.emolumento_maximo) {
+        emolumento = Math.min(emolumentoCalculado, dados.emolumento_maximo);
+    } else {
+        emolumento = emolumentoCalculado;
+    }
 
-  // Taxas FAADEP e FRMMP
-  const faadep = subtotal * PERCENTUAL_FAADEP;
-  const frmmp = subtotal * PERCENTUAL_FRMMP;
+    if (dados.tipo_emolumento === 'escritura') {
+        const fermojuBase = 47.84;
+        selo = 36.28;
+        fermoju = ((emolumento - custoBase) * 0.05) + fermojuBase;
+    } else if (dados.tipo_emolumento === 'registro') {
+        const fermojuBase = 94.98;
+        selo = 54.40;
+        fermoju = ((emolumento - custoBase) * 0.05) + fermojuBase;
+    }
 
-  // Total Final
-  return subtotal + faadep + frmmp;
+    // Cálculo das taxas
+    subtotal = emolumento + fermoju + selo;
+    fadep = emolumento * 0.05;
+    frmmp = emolumento * 0.05;
+
+    // O valor final é a soma de todos os componentes
+    return subtotal + fadep + frmmp;
 };
 
 // Função principal que escolhe o padrão correto
