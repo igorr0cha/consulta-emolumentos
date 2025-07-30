@@ -1,6 +1,5 @@
 # Consulta Emolumentos
 
-
 ## 📖 Sobre o Projeto
 
 O **Consulta Emolumentos** é uma plataforma robusta e intuitiva desenvolvida para simplificar a consulta e comparação de valores de formalização imobiliária em todo o Brasil. A ferramenta permite que usuários, como corretores de imóveis, advogados e compradores, possam estimar os custos totais envolvidos na transferência de um imóvel, incluindo escritura, registro, ITBI e procurações.
@@ -24,17 +23,17 @@ Além de fornecer uma calculadora detalhada, a plataforma oferece uma análise c
 
 O projeto foi construído com as mais modernas tecnologias do ecossistema JavaScript, garantindo performance, escalabilidade e uma ótima experiência de desenvolvimento.
 
-| Tecnologia | Descrição |
-| :--- | :--- |
-| **React** | Biblioteca principal para a construção da interface de usuário. |
+| Tecnologia      | Descrição                                                              |
+| :-------------- | :--------------------------------------------------------------------- |
+| **React** | Biblioteca principal para a construção da interface de usuário.        |
 | **Vite** | Ferramenta de build extremamente rápida para o desenvolvimento frontend. |
-| **TypeScript** | Superset do JavaScript que adiciona tipagem estática ao código. |
-| **Tailwind CSS** | Framework CSS utility-first para estilização rápida e customizável. |
-| **shadcn/ui** | Coleção de componentes de UI reusáveis e acessíveis. |
+| **TypeScript** | Superset do JavaScript que adiciona tipagem estática ao código.        |
+| **Tailwind CSS**| Framework CSS utility-first para estilização rápida e customizável.    |
+| **shadcn/ui** | Coleção de componentes de UI reusáveis e acessíveis.                   |
 | **Supabase** | Backend como serviço (BaaS) que oferece banco de dados, autenticação e APIs. |
-| **React Router** | Para gerenciamento de rotas e navegação na aplicação. |
-| **TanStack Query** | Gerenciamento de estado assíncrono, cache e sincronização de dados. |
-| **Recharts** | Biblioteca de gráficos para visualização de dados nos rankings. |
+| **React Router**| Para gerenciamento de rotas e navegação na aplicação.                  |
+| **TanStack Query**| Gerenciamento de estado assíncrono, cache e sincronização de dados.   |
+| **Recharts** | Biblioteca de gráficos para visualização de dados nos rankings.        |
 
 <p align="center">
   <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React"/>
@@ -75,3 +74,17 @@ Siga os passos abaixo para configurar e executar o projeto em seu ambiente de de
 ### Variáveis de Ambiente
 
 Para que a aplicação se conecte ao Supabase, você precisará criar um arquivo `.env.local` na raiz do projeto e adicionar suas credenciais.
+
+```
+VITE_SUPABASE_URL="SUA_SUPABASE_URL"
+VITE_SUPABASE_ANON_KEY="SUA_SUPABASE_ANON_KEY"
+```
+
+### Executando o Projeto
+
+Com as dependências instaladas e as variáveis de ambiente configuradas, inicie o servidor de desenvolvimento:
+
+```bash
+npm run dev
+
+A aplicação estará disponível em http://localhost:8080.
