@@ -47,9 +47,7 @@ O projeto foi construído com as mais modernas tecnologias do ecossistema JavaSc
 
 ## 🏁 Começando
 
-### Link Site:
-
-[www.consulta-emolumentos](https://consulta-emolumentos.lovable.app)
+### Link Site:[www.consulta-emolumentos](https://consulta-emolumentos.lovable.app)
 Ou siga os passos abaixo para configurar e executar o projeto em seu ambiente de desenvolvimento local.
 
 ### Pré-requisitos
